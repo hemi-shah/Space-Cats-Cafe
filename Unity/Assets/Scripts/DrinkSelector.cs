@@ -5,20 +5,37 @@ public class DrinkSelector : MonoBehaviour
 {
     public Button hotDrinkButton;
     public Button coldDrinkButton;
+
+    public CupAnimator hotCupAnimator;
+    public CupAnimator coldCupAnimator;
+
     private Drink currentDrink;
+    private bool selected = false;
 
     public void SelectColdDrink()
     {
+        if (selected) return;
+        selected = true;
+
         currentDrink = new Drink(false);
+        Debug.Log("Cold drink selected!");
         _disableButtons();
-        print("Cold drink selected!");
+
+        coldCupAnimator.SlideToCenter();
+        hotCupAnimator.SlideOutLeft();
     }
 
     public void SelectHotDrink()
     {
+        if (selected) return;
+        selected = true;
+
         currentDrink = new Drink(true);
+        Debug.Log("Hot drink selected!");
         _disableButtons();
-        print("Hot drink selected!");
+
+        hotCupAnimator.SlideToCenter();
+        coldCupAnimator.SlideOutRight();
     }
 
     private void _disableButtons()
