@@ -8,6 +8,7 @@ public class EspressoScreen : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        drink.SetIsEmpty(true);
         drink.SetIsHot(true);   // i just want to start with hot drinks for now idk
     }
 
