@@ -13,6 +13,11 @@ public class tempDrink : MonoBehaviour
     public Sprite hotFullSprite;
     public Sprite icedFullSprite;
 
+    public Sprite hotMilkCoffeeSprite;
+    public Sprite icedMilkCoffeeSprite;
+
+    private MilkType milkType = MilkType.None;
+
     void Awake()
     {
         currentImage = GetComponent<Image>();
@@ -21,14 +26,34 @@ public class tempDrink : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        isEmpty = true;
-        if (isHot)
+        // set empty sprites
+        if (isHot && isEmpty)
         {
             currentImage.sprite = hotEmptySprite;
         }
-        else
+        else if (!isHot && isEmpty)
         {
             currentImage.sprite = icedEmptySprite;
+        }
+        
+        // set full (no milk) sprites
+        else if (isHot && !isEmpty && (milkType == MilkType.None))
+        {
+            currentImage.sprite = hotFullSprite;
+        }
+        else if (isHot && !isEmpty && (milkType == MilkType.None))
+        {
+            currentImage.sprite = icedFullSprite;
+        }
+        
+        // set full (with milk) sprites
+        else if (isHot && !isEmpty && (milkType != MilkType.None))
+        {
+            currentImage.sprite = hotMilkCoffeeSprite;
+        }
+        else if (!isHot && !isEmpty && (milkType != MilkType.None))
+        {
+            currentImage.sprite = icedMilkCoffeeSprite;
         }
     }
 
@@ -51,6 +76,16 @@ public class tempDrink : MonoBehaviour
         
     }
 
+    public bool GetIsEmpty()
+    {
+        return isEmpty;
+    }
+
+    public void SetIsEmpty(bool isEmpty)
+    {
+        this.isEmpty = isEmpty;
+    }
+
     public void FillCup()
     {
         if (isHot)
@@ -63,6 +98,20 @@ public class tempDrink : MonoBehaviour
         }
         
         isEmpty = false;
+    }
+
+    public void PourMilk(MilkType milkType)
+    {
+        if (isHot)
+        {
+            currentImage.sprite = hotMilkCoffeeSprite;
+        }
+        else
+        {
+            currentImage.sprite = icedMilkCoffeeSprite;
+        }
+        
+        this.milkType = milkType;
     }
     
     
