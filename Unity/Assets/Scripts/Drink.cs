@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Drink
 {
+    public int IceAmount;
     private int _orderNumber;
     private bool _isHot;
     private bool _isCold;
@@ -18,9 +19,10 @@ public class Drink
         _assembly = new List<string>();
         _toppings = new List<string>();
     }
-    public Drink(int orderNumber, bool isHot, bool isCold, List<string> customizations, List<string> assembly, List<string> toppings)
+    public Drink(int orderNumber, int iceAmount, bool isHot, bool isCold, List<string> customizations, List<string> assembly, List<string> toppings)
     {
         _orderNumber = orderNumber;
+        IceAmount = iceAmount;
         _isHot = isHot;
         _isCold = isCold;
         _customizations = customizations;
