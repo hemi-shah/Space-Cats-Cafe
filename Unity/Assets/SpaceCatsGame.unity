@@ -477,7 +477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7191db5a6fd40e39738b285f15b1e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChangeScreenButton
-  currentPanel: {fileID: 1833624386}
+  currentPanel: {fileID: 1019713665}
   nextPanel: {fileID: 124921578}
 --- !u!114 &241452069
 MonoBehaviour:
@@ -3209,7 +3209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7191db5a6fd40e39738b285f15b1e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChangeScreenButton
-  currentPanel: {fileID: 1833624386}
+  currentPanel: {fileID: 1019713665}
   nextPanel: {fileID: 1936925107}
 --- !u!114 &1249686887
 MonoBehaviour:
@@ -3591,7 +3591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7191db5a6fd40e39738b285f15b1e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChangeScreenButton
-  currentPanel: {fileID: 1833624386}
+  currentPanel: {fileID: 1019713665}
   nextPanel: {fileID: 821731475}
 --- !u!114 &1389528354
 MonoBehaviour:
@@ -4939,7 +4939,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7191db5a6fd40e39738b285f15b1e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OrdersButton
-  currentPanel: {fileID: 1833624386}
+  currentPanel: {fileID: 1019713665}
   nextPanel: {fileID: 1188808055}
 --- !u!114 &1898135815
 MonoBehaviour:
