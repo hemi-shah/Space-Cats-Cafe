@@ -3529,7 +3529,7 @@ MonoBehaviour:
     isStation: 0
   - screenId: OrderPageScreen
     screenObject: {fileID: 1188808055}
-    isStation: 0
+    isStation: 1
   - screenId: TakeOrderScreen
     screenObject: {fileID: 1853405841}
     isStation: 0
