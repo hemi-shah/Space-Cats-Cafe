@@ -16,7 +16,17 @@ public class tempDrink : MonoBehaviour
     public Sprite hotMilkCoffeeSprite;
     public Sprite icedMilkCoffeeSprite;
 
+    public GameObject whippedCreamVisual;
+    public GameObject chocolateVisual;
+    public GameObject caramelVisual;
+
     private MilkType milkType = MilkType.None;
+
+    private bool hasWhippedCream;
+    private bool hasChocolateSyrup;
+    private bool hasCaramelSyrup;
+    private int toppingsCount;
+    private int maxToppings = 3;
 
     void Awake()
     {
@@ -54,6 +64,21 @@ public class tempDrink : MonoBehaviour
         else if (!isHot && !isEmpty && (milkType != MilkType.None))
         {
             currentImage.sprite = icedMilkCoffeeSprite;
+        }
+
+        if (!hasWhippedCream)
+        {
+            whippedCreamVisual.SetActive(false);
+        }
+
+        if (!hasChocolateSyrup)
+        {
+            chocolateVisual.SetActive(false);
+        }
+
+        if (!hasCaramelSyrup)
+        {
+            caramelVisual.SetActive(false);
         }
     }
 
@@ -112,6 +137,33 @@ public class tempDrink : MonoBehaviour
         }
         
         this.milkType = milkType;
+    }
+
+    public void AddTopping(ToppingsType toppingsType)
+    {
+        switch (toppingsType)
+        {
+            case ToppingsType.WhippedCream:
+                if (hasWhippedCream) return;
+                hasWhippedCream = true;
+                if (whippedCreamVisual) whippedCreamVisual.SetActive(true);
+                break;
+            
+            case ToppingsType.ChocolateSyrup:
+                if (hasChocolateSyrup) return;
+                hasChocolateSyrup = true;
+                if (chocolateVisual) chocolateVisual.SetActive(true);
+                break;
+            
+            case ToppingsType.CaramelSyrup:
+                if (hasCaramelSyrup) return;
+                hasCaramelSyrup = true;
+                if (caramelVisual) caramelVisual.SetActive(true);
+                break;
+        }
+
+        toppingsCount++;
+        Debug.Log($"Added topping: {toppingsType}");
     }
     
     
