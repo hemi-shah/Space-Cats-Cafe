@@ -40,6 +40,15 @@ public class ScreenManager : MonoBehaviour
     // For main navigation flow (Start → ChooseCat → OrderPage, etc.)
     public void NavigateTo(string screenId)
     {
+        Debug.Log($"NavigateTo called with: {screenId}");
+        Debug.Log($"Current screen: {currentScreenId}");
+    
+        if (!screenDictionary.ContainsKey(screenId)) 
+        {
+            Debug.LogError($"Screen '{screenId}' not found in dictionary!");
+            Debug.Log($"Available screens: {string.Join(", ", screenDictionary.Keys)}");
+            return;
+        }
         if (!screenDictionary.ContainsKey(screenId)) return;
         
         // Hide current screen
