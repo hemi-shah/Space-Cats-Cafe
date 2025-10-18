@@ -35,12 +35,28 @@ public class OrderManager : MonoBehaviour
         {
             isHot = false,
             hasWhippedCream = true,
-            hasChocolateSyrup = true,
-            hasCaramelSyrup = false,
+            hasChocolateSyrup = false,
+            hasCaramelSyrup = true,
             numberOfIceCubes = 2,
             milk = MilkType.Almond,
             syrup = SyrupType.Caramel,
             drinkName = "Iced Caramel Latte"
+        };
+        CreateOrder(data);
+    }
+
+    public void CreateTestOrder2()
+    {
+        OrderTicketData data = new OrderTicketData
+        {
+            isHot = true,
+            hasWhippedCream = true,
+            hasChocolateSyrup = true,
+            hasCaramelSyrup = false,
+            numberOfIceCubes = 0,
+            milk = MilkType.Dairy,
+            syrup = SyrupType.Mocha,
+            drinkName = "Hot Mocha Latte"
         };
         CreateOrder(data);
     }

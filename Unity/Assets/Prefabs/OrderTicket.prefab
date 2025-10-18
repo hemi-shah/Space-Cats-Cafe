@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9d4efa6abff4c41109c57a8620ae0881, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eaeb7ad01de4e4a179a11e8202b88c1e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -162,6 +162,7 @@ GameObject:
   - component: {fileID: 2273168797831823732}
   - component: {fileID: 8269197919106497273}
   - component: {fileID: 4729091933134088815}
+  - component: {fileID: 3347909629611342279}
   m_Layer: 0
   m_Name: OrderTicket
   m_TagString: Untagged
@@ -253,16 +254,72 @@ MonoBehaviour:
   whippedCream: {fileID: 21300000, guid: 49e71ebb545ea49a4bb095ed3b69f4c1, type: 3}
   chocolateSyrup: {fileID: 21300000, guid: e9a38615a2e594f8582512b1e58511b3, type: 3}
   caramelSyrup: {fileID: 21300000, guid: ad2fbe438176a48e591aa81ca0b53adf, type: 3}
-  DrinkType: {fileID: 7774351173766711269}
+  DrinkType: {fileID: 368119172229635371}
   milkType: {fileID: 5938936947137268998}
   syrupType: {fileID: 621891727677464701}
   whippedCreamTopping: {fileID: 7779776059791863031}
   chocolateSyrupTopping: {fileID: 2208692349073373753}
   caramelSyrupTopping: {fileID: 3185469275221194007}
   iceAmount: {fileID: 2699789147469008107}
-  orderNumberText: {fileID: 9158246205098021216}
+  orderNumberText: {fileID: 7753625775203164771}
   drinkNameText: {fileID: 9158246205098021216}
   contentRoot: {fileID: 8470967643221339388}
+--- !u!114 &3347909629611342279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1165469254270414082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 0
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 8269197919106497273}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1165469254270414082}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2208692349073373753
 GameObject:
   m_ObjectHideFlags: 0

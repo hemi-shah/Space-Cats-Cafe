@@ -74,11 +74,19 @@ public class OrderTicket : MonoBehaviour
         
         if (DrinkType)
         {
-            if (DrinkType)
+            var img = DrinkType.GetComponent<Image>();
+            if (!img)
             {
-                var img = DrinkType.GetComponent<Image>();
-                if (img) img.sprite = data.isHot ? emptyCupHot : emptyCupIced;
+                Debug.LogWarning("[OrderTicket] DrinkType is missing Image");
             }
+            else
+            {
+                img.sprite = data.isHot ? emptyCupHot : emptyCupIced;
+            }
+        }
+        else
+        {
+            Debug.LogWarning("[OrderTicket] DrinkType reference is missing");
         }
 
         if (whippedCreamTopping)

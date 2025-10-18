@@ -13,13 +13,11 @@ public class TicketBoard : MonoBehaviour
     
     [Header("Exact Sizes")]
     [SerializeField] private Vector2 largeSize = new Vector2(500f, 700f);
-    //[SerializeField] private float largeScale = 1f;
     [SerializeField] private Vector2 smallSize = new Vector2(150f, 250f);
-    //[SerializeField] private float smallScale = 1f;
 
     [Header("Content Scales")]
     [SerializeField] private float largeContentScale = 1f;
-    [SerializeField] private float smallContentScale = 0.5f;
+    [SerializeField] private float smallContentScale = 0.4f;
 
     private readonly Dictionary<int, OrderTicket> tickets = new Dictionary<int, OrderTicket>();
     private int? currentDetailOrder = null;
@@ -59,13 +57,11 @@ public class TicketBoard : MonoBehaviour
             CenterInParent(rt);
             SetTicketSize(rt, largeSize);
             ticket.SetContentScale(largeContentScale);
-            //SetTicketVisual(ticket, largeSize, largeScale);
         }
         else
         {
             SetTicketSize(rt, smallSize);
             ticket.SetContentScale(smallContentScale);
-            //SetTicketVisual(ticket, smallSize, smallScale);
             ticket.transform.SetAsLastSibling();
         }
     }
@@ -111,12 +107,8 @@ public class TicketBoard : MonoBehaviour
 
     private void MoveToTopRow(OrderTicket t)
     {
-        //var rt = (RectTransform)t.transform;
         t.transform.SetParent(topRowParent, false);
         var rt = (RectTransform)t.transform;
-       // Normalize((RectTransform)t.transform);
-        //rt.localScale = Vector3.one;
-        //SetTicketVisual(t, smallSize, smallScale);
         SetTicketSize(rt, smallSize);
         t.SetContentScale(smallContentScale);
         t.transform.SetAsLastSibling();
@@ -124,26 +116,20 @@ public class TicketBoard : MonoBehaviour
     
     private void MoveToDetail(OrderTicket t)
     {
-        //var rt = (RectTransform)t.transform;
         t.transform.SetParent(detailParent, false);
         var rt = (RectTransform)t.transform;
         CenterInParent(rt);
         SetTicketSize(rt, largeSize);
-        //SetTicketVisual(t, largeSize, largeScale);
         t.SetContentScale(largeContentScale);
-        //t.transform.SetAsLastSibling();
     }
     
     private void CenterInParent(RectTransform rt)
     {
-        // Center anchors/pivot and zero local position so it sits in the middle of the parent
-        //rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
         if (!rt) return;
         rt.anchorMin = new Vector2(0.5f, 0.5f);
         rt.anchorMax = new Vector2(0.5f, 0.5f);
         rt.pivot = new Vector2(0.5f, 0.5f);
         rt.anchoredPosition = Vector2.zero;
-        //rt.localScale = Vector3.one;
     }
 
     private void Normalize(RectTransform rt)
@@ -168,24 +154,7 @@ public class TicketBoard : MonoBehaviour
         
         Debug.Log($"SetTicketSize called for {rt.name}: target size = {size.x} x {size.y}");
     }
-
-    /*
-    private void SetTicketSize(OrderTicket t, Vector2 size)
-    {
-        var le = t.GetComponent<LayoutElement>();
-        if (le)
-        {
-            le.preferredWidth = size.x;
-            le.preferredHeight = size.y;
-            le.minWidth = size.x;
-            le.minHeight = size.y;
-        }
-        else
-        {
-            ((RectTransform)t.transform).sizeDelta = size;
-        }
-    }
-    */
+    
 
     private void SetTicketVisual(OrderTicket t, Vector2 size, float scale)
     {
