@@ -29,13 +29,20 @@ public class TicketBoard : MonoBehaviour
             Debug.LogError("[TicketBoard] Assign ticketPrefab, topRowParent, detailParent");
             return;
         }
+
+        if (currentDetailOrder.HasValue &&
+            tickets.TryGetValue(currentDetailOrder.Value, out var currentBig) &&
+            currentBig != null)
+        {
+            MoveToTopRow(currentBig);
+        }
         
         // First ticket appears big, others go to top row
-        bool spawnInDetail = currentDetailOrder == null;
-        RectTransform parent = spawnInDetail ? detailParent : topRowParent;
+        //bool spawnInDetail = currentDetailOrder == null;
+        //RectTransform parent = spawnInDetail ? detailParent : topRowParent;
 
         // Create ticket
-        var ticket = Instantiate(ticketPrefab, parent);
+        var ticket = Instantiate(ticketPrefab, detailParent);
         var rt = (RectTransform)ticket.transform;
         Normalize(rt);
         
@@ -50,7 +57,15 @@ public class TicketBoard : MonoBehaviour
             btn.onClick.AddListener(() => OnTicketClicked(orderNumber));
         }
 
+        CenterInParent(rt);
+        SetTicketSize(rt, largeSize);
+        ticket.SetContentScale(largeContentScale);
+        ticket.transform.SetAsLastSibling();
+        
+        currentDetailOrder = orderNumber;
+
         // Size + track
+        /*
         if (spawnInDetail)
         {
             currentDetailOrder = orderNumber;
@@ -64,6 +79,8 @@ public class TicketBoard : MonoBehaviour
             ticket.SetContentScale(smallContentScale);
             ticket.transform.SetAsLastSibling();
         }
+        */
+
     }
     
     public void RemoveTicket(int orderNumber)
