@@ -194,6 +194,23 @@ public class TicketBoard : MonoBehaviour
 
         rt.localScale = Vector3.one * scale;
     }
+
+    public OrderTicket GetCurrentDetailTicket()
+    {
+        if (currentDetailOrder.HasValue &&
+            tickets.TryGetValue(currentDetailOrder.Value, out var t))
+        {
+            return t;
+        }
+
+        return null;
+    }
+    
+    public OrderTicket GetTicket(int orderNumber)
+    {
+        tickets.TryGetValue(orderNumber, out var t);
+        return t;
+    }
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

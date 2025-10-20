@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
@@ -152,29 +154,58 @@ public class OrderTicket : MonoBehaviour
          
     }
     
-    /*
-    // ChatGpt
-    [Header("UI")] 
-    [SerializeField] private Text orderNumberText;
-    [SerializeField] private Text drinkNameText;
-
-    [Header("Milk Type")] 
-    //[SerializeField] private GameObject milkType;
-    
-    [NonSerialized] public string drinkName;
-
-    
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    // Set content of ticket visible
+    public void SetContentVisible(bool visible)
     {
-        
+        if (!contentRoot) return;
+        contentRoot.gameObject.SetActive(visible);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void FadeContent(bool visible, float duration)
     {
+        if (!contentRoot) return;
+
+        var cg = contentRoot.GetComponent<CanvasGroup>();
+        if (!cg) cg = contentRoot.gameObject.AddComponent<CanvasGroup>();
+
+        StopAllCoroutines();
+
+        if (visible)
+        {
+            contentRoot.gameObject.SetActive(true);
+            cg.alpha = 0f;
+        }
+        else
+        {
+            contentRoot.gameObject.SetActive(true);
+            cg.alpha = 1f;
+        }
+        //if (!contentRoot.gameObject.activeSelf && visible)
+            //contentRoot.gameObject.SetActive(true);
         
+        //StopAllCoroutines();
+        StartCoroutine(FadeRoutine(visible, duration, cg));
     }
-    */
+
+    private IEnumerator FadeRoutine(bool visible, float duration, CanvasGroup cg)
+    {
+        float start = cg.alpha;
+        float end = visible ? 1f : 0f;
+        float t = 0f;
+
+        //if (visible && !contentRoot.gameObject.activeSelf)
+            //contentRoot.gameObject.SetActive(true);
+
+        while (t < duration)
+        {
+            t += Time.deltaTime;
+            cg.alpha = Mathf.Lerp(start, end, t / duration);
+            yield return null;
+        }
+
+        cg.alpha = end;
+
+        if (!visible)
+            contentRoot.gameObject.SetActive(false);
+    }
 }

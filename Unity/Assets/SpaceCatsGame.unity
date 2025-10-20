@@ -811,7 +811,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &253363897
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3943,7 +3943,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -250, y: 92.3}
+  m_AnchoredPosition: {x: -262.7, y: 95.3}
   m_SizeDelta: {x: 500, y: 700}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &835193460
@@ -4622,7 +4622,6 @@ RectTransform:
   - {fileID: 1249686885}
   - {fileID: 1389528352}
   - {fileID: 241452067}
-  - {fileID: 1898135813}
   m_Father: {fileID: 982125261}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5050,7 +5049,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1232039196
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6415,7 +6414,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1522316713
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7596,13 +7595,14 @@ GameObject:
   - component: {fileID: 1853405842}
   - component: {fileID: 1853405844}
   - component: {fileID: 1853405843}
+  - component: {fileID: 1853405845}
   m_Layer: 5
   m_Name: TakeOrderScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1853405842
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7643,7 +7643,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f9f02a8c4684540d8be780d974a642df, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 93058901780bd488eb9b406bf80508ad, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7661,6 +7661,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1853405841}
   m_CullTransparentMesh: 1
+--- !u!114 &1853405845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853405841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c39da8f8aa3954873b4dc0ed19f9c8d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TakeOrderScreen
+  orderManager: {fileID: 1029707131}
+  ticketBoard: {fileID: 1933170646}
+  delayBeforeContent: 2
+  useFade: 1
+  fadeDuration: 0.5
 --- !u!1 &1857696946
 GameObject:
   m_ObjectHideFlags: 0
@@ -7923,7 +7940,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 644777871}
-  m_Father: {fileID: 1019713666}
+  m_Father: {fileID: 1936925108}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7942,8 +7959,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7191db5a6fd40e39738b285f15b1e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OrdersButton
-  currentPanel: {fileID: 1019713665}
-  nextPanel: {fileID: 1188808055}
+  currentPanel: {fileID: 1936925107}
+  nextPanel: {fileID: 1853405841}
 --- !u!114 &1898135815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8471,7 +8488,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1936925108
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8487,6 +8504,7 @@ RectTransform:
   - {fileID: 473509368}
   - {fileID: 392916490}
   - {fileID: 710458373}
+  - {fileID: 1898135813}
   m_Father: {fileID: 982125261}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

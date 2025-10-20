@@ -5,6 +5,14 @@ public class OrderManager : MonoBehaviour
 {
     [SerializeField] private TicketBoard ticketBoard;
 
+    [Header("Random Order Weights")] 
+    [Range(0f, 1f)] [SerializeField] private float hotChance = 0.5f;
+
+    [Range(0f, 1f)] [SerializeField] private float milkChance = 0.75f;
+    [Range(0f, 1f)] [SerializeField] private float whippedChange = 0.75f;
+    [Range(0f, 1f)] [SerializeField] private float toppingChance = 0.35f;
+    
+
     private int nextOrderNumber = 1;
 
     private List<int> activeOrderNumbers = new List<int>();
