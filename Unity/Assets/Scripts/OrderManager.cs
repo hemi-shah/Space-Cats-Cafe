@@ -27,7 +27,12 @@ public class OrderManager : MonoBehaviour
 
         if (ticketBoard)
         {
+            Debug.Log($"[OrderManager] Spawning ticket #{orderNumber}");
             ticketBoard.SpawnTicket(orderNumber, data);
+        }
+        else
+        {
+            Debug.LogError("[OrderManager] ticketBoard ref is missing", this);
         }
         
         return orderNumber;

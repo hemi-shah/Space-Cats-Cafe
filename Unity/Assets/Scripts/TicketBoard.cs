@@ -1,11 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 // basically all ChatGPT bc like idk this already took like hours
 
 public class TicketBoard : MonoBehaviour
 {
+    public event Action<int?> OnDetailOrderChanged;
+    
     [Header("Prefabs & Parents")]
     [SerializeField] private OrderTicket ticketPrefab;
     [SerializeField] private RectTransform topRowParent;
@@ -21,6 +24,8 @@ public class TicketBoard : MonoBehaviour
 
     private readonly Dictionary<int, OrderTicket> tickets = new Dictionary<int, OrderTicket>();
     private int? currentDetailOrder = null;
+    
+    public int? GetCurrentDetailOrder() => currentDetailOrder;
     
     public void SpawnTicket(int orderNumber, OrderTicketData data)
     {
@@ -49,6 +54,8 @@ public class TicketBoard : MonoBehaviour
         ticket.Setup(orderNumber, data);
         tickets[orderNumber] = ticket;
 
+        Debug.LogError($"[TicketBoard] Spawned ticket #{orderNumber} into Detail", this);
+
         // Wire up button click (no IPointerClickHandler needed)
         var btn = ticket.GetComponent<Button>();
         if (btn)
@@ -62,24 +69,8 @@ public class TicketBoard : MonoBehaviour
         ticket.SetContentScale(largeContentScale);
         ticket.transform.SetAsLastSibling();
         
-        currentDetailOrder = orderNumber;
-
-        // Size + track
-        /*
-        if (spawnInDetail)
-        {
-            currentDetailOrder = orderNumber;
-            CenterInParent(rt);
-            SetTicketSize(rt, largeSize);
-            ticket.SetContentScale(largeContentScale);
-        }
-        else
-        {
-            SetTicketSize(rt, smallSize);
-            ticket.SetContentScale(smallContentScale);
-            ticket.transform.SetAsLastSibling();
-        }
-        */
+        //currentDetailOrder = orderNumber;
+        SetDetailOrder(orderNumber);
 
     }
     
@@ -93,6 +84,7 @@ public class TicketBoard : MonoBehaviour
         }
     }
     
+    // When ticket clicked, moves between detail area and top row
     public void OnTicketClicked(int orderNumber)
     {
         if (!tickets.TryGetValue(orderNumber, out var clicked) || clicked == null)
@@ -122,6 +114,7 @@ public class TicketBoard : MonoBehaviour
         }
     }
 
+    // move ticket to top row
     private void MoveToTopRow(OrderTicket t)
     {
         t.transform.SetParent(topRowParent, false);
@@ -131,6 +124,7 @@ public class TicketBoard : MonoBehaviour
         t.transform.SetAsLastSibling();
     }
     
+    // move ticket to detail area
     private void MoveToDetail(OrderTicket t)
     {
         t.transform.SetParent(detailParent, false);
@@ -205,6 +199,12 @@ public class TicketBoard : MonoBehaviour
 
         return null;
     }
+
+    private void SetDetailOrder(int? orderNumber)
+    {
+        currentDetailOrder = orderNumber;
+        OnDetailOrderChanged?.Invoke(currentDetailOrder);
+    }
     
     public OrderTicket GetTicket(int orderNumber)
     {
@@ -212,16 +212,5 @@ public class TicketBoard : MonoBehaviour
         return t;
     }
     
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     
 }

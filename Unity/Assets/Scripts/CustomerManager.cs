@@ -1,14 +1,58 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CustomerManager : MonoBehaviour
 {
+    [SerializeField] private OrderManager orderManager;
     
+    public static CustomerManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        
+        Instance = this;
+    }
+
+    private readonly Dictionary<int, CustomerSession> sessions = new Dictionary<int, CustomerSession>();
+
+    public int TakeOrderForCat(CatDefinition cat)
+    {
+        // generate random order
+        var data = orderManager.GenerateRandomOrderData();
+
+        int orderNum = orderManager.CreateOrder(data);
+
+        sessions[orderNum] = new CustomerSession
+        {
+            cat = cat,
+            orderNumber = orderNum,
+            orderData = data
+        };
+
+        Debug.Log($"[CustomerManager] Session stored for order {orderNum} (cat={cat.catName})");
+
+        return orderNum;
+    }
     
-    
+    public bool TryGetSession(int orderNumber, out CustomerSession session) 
+        => sessions.TryGetValue(orderNumber, out session);
+
+    public void CompleteOrderAndRemove(int orderNumber)
+    {
+        orderManager.CompleteOrder(orderNumber);
+        sessions.Remove(orderNumber);
+    }
+
+
     /*
     public static CustomerManager Instance { get; private set; }
 
-    [Header("Customers in this scene")] 
+    [Header("Customers in this scene")]
     [SerializeField] private CustomerState[] customers;
 
     public int ActiveIndex { get; private set; } = -1;
@@ -26,7 +70,7 @@ public class CustomerManager : MonoBehaviour
         if (index < 0 || index >= Count) { Debug.LogWarning("Bad customer index"); return; }
         ActiveIndex = index;
     }
-    
+
     public CustomerState GetActiveCustomer()
     {
         if (ActiveIndex < 0 || ActiveIndex >= Count) return null;
@@ -60,17 +104,17 @@ public class CustomerManager : MonoBehaviour
         var c = GetActiveCustomer();
         return c != null && c.served;
     }
-    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     */
 }

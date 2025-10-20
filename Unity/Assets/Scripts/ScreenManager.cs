@@ -13,6 +13,16 @@ public class ScreenManager : MonoBehaviour
 
     [Header("Screen References")]
     [SerializeField] private List<GameScreen> screens = new List<GameScreen>();
+
+    [Header("Ticket Board Pinning")]
+    [SerializeField] private GameObject ticketBoardRoot;
+    [SerializeField] private List<string> suppressBoardOnScreens = new List<string>
+    {
+        "StartScreen",
+        "ChooseCatScreen",
+        "OrderPageScreen"
+    };
+    [SerializeField] private bool hideBoardInsteadOfPushBack = false;
     
     [Header("Station Screens")]
     [SerializeField] private string ordersStation = "OrderPageScreen";
@@ -34,7 +44,9 @@ public class ScreenManager : MonoBehaviour
         }
     
         // Then activate only the StartScreen
-        ShowScreen("StartScreen"); // Make sure this line exists!
+        //ShowScreen("StartScreen"); // Make sure this line exists!
+
+        ShowScreen("OrderPageScreen");  // for testing orderPageScreen
     }
 
     // For main navigation flow (Start → ChooseCat → OrderPage, etc.)
@@ -99,6 +111,7 @@ public class ScreenManager : MonoBehaviour
         screen.screenObject.SetActive(true);
         BringToForeground(screen);
         currentScreenId = screenId;
+        UpdateTicketBoardLayer(screenId); // keep ticketboard on top
         
         Debug.Log($"Showing: {screenId}");
     }
@@ -114,6 +127,32 @@ public class ScreenManager : MonoBehaviour
     {
         // Bring to front of UI hierarchy
         screen.screenObject.transform.SetAsLastSibling();
+    }
+
+    private void UpdateTicketBoardLayer(string screenId)
+    {
+        if (!ticketBoardRoot) return;
+        bool suppress = suppressBoardOnScreens.Contains(screenId);
+
+        if (suppress)
+        {
+            if (hideBoardInsteadOfPushBack)
+            {
+                ticketBoardRoot.SetActive(false);
+            }
+            else
+            {
+                if (!ticketBoardRoot.activeSelf) ticketBoardRoot.SetActive(true);
+                ticketBoardRoot.transform.SetAsFirstSibling();
+            }
+        }
+
+        else
+        {
+            // bring ticket board to top
+            if (!ticketBoardRoot.activeSelf) ticketBoardRoot.SetActive(true);
+            ticketBoardRoot.transform.SetAsLastSibling();
+        }
     }
 
     // Quick access methods for your specific stations

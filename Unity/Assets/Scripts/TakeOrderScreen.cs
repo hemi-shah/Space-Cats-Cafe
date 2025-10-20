@@ -16,11 +16,93 @@ public class TakeOrderScreen : MonoBehaviour
     [SerializeField] private float delayBeforeContent = 0.45f;
     [SerializeField] private bool useFade = true;
     [SerializeField] private float fadeDuration = 0.25f;
+    
+    [SerializeField] private Image catPortrait;
+    [SerializeField] private Text catNameText;
 
     // When TakeOrderScreen opens, starts sequence to show order ticket
     private void OnEnable()
     {
-        StartCoroutine(ShowOrderTicketSequence());
+        if (ticketBoard)
+        {
+            ticketBoard.OnDetailOrderChanged += HandleDetailChanged;
+        }
+
+        HandleDetailChanged(ticketBoard?.GetCurrentDetailOrder());
+        //StartCoroutine(ShowOrderTicketSequence());
+    }
+
+    private void OnDisable()
+    {
+        if (ticketBoard)
+        {
+            ticketBoard.OnDetailOrderChanged -= HandleDetailChanged;
+        }
+    }
+
+    private void HandleDetailChanged(int? orderNumber)
+    {
+        Debug.Log($"[TakeOrderScreen] Detail changed -> {orderNumber}");
+        
+        if (!orderNumber.HasValue) { ClearCatUI(); return; }
+
+        if (!CustomerManager.Instance ||
+            !CustomerManager.Instance.TryGetSession(orderNumber.Value, out var session))
+        {
+            Debug.LogWarning($"[TakeOrderScreen] No session for order {orderNumber.Value}");
+            ClearCatUI();
+            return;
+        }
+
+        // Show the matching cat
+        if (catPortrait) catPortrait.sprite = session.cat.catSprite;
+        if (catNameText) catNameText.text = session.cat.catName;
+
+        // Staged ticket reveal
+        var ticket = ticketBoard.GetCurrentDetailTicket();
+        if (ticket)
+        {
+            ticket.SetContentVisible(false);
+            StartCoroutine(DelayedFadeIn(ticket));
+        }
+        // update cat panel
+        /*
+        if (orderNumber.HasValue &&
+            CustomerManager.Instance.TryGetSession(orderNumber.Value, out var session))
+        {
+            if (catPortrait) catPortrait.sprite = session.cat.catSprite;
+            if (catNameText) catNameText.text = session.cat.catName;
+
+            var ticket = ticketBoard.GetCurrentDetailTicket();
+            if (ticket)
+            {
+                ticket.SetContentVisible(false);
+                StartCoroutine(DelayedFadeIn(ticket));
+            }
+        }
+        *
+
+        else
+        {
+            if (catPortrait) catPortrait.sprite = null;
+            if (catNameText) catNameText.text = "";
+        }
+        */
+        Debug.Log($"[TakeOrderScreen] order={orderNumber} " +
+                  $"cat={(session != null ? session.cat.catName : "null")} " +
+                  $"ticket={(ticket ? ticket.name : "null")}");
+    }
+
+    private void ClearCatUI()
+    {
+        if (catPortrait) catPortrait.sprite = null;
+        if (catNameText) catNameText.text = "";
+    }
+    
+    private IEnumerator DelayedFadeIn(OrderTicket ticket)
+    {
+        yield return new WaitForSeconds(delayBeforeContent);
+        if (ticket) ticket.FadeContent(true, fadeDuration);
     }
 
     private IEnumerator ShowOrderTicketSequence()

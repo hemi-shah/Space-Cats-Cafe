@@ -56,6 +56,8 @@ public class OrderTicket : MonoBehaviour
 
     public RectTransform contentRoot;
     
+    public int OrderNumber { get; private set; }
+    
     public void SetContentScale(float s)
     {
         if (contentRoot) contentRoot.localScale = new Vector3(s, s, 1f);
@@ -64,6 +66,8 @@ public class OrderTicket : MonoBehaviour
     // ChatGPT
     public void Setup(int orderNumber, OrderTicketData data)
     {
+        OrderNumber = orderNumber;
+        
         if (orderNumberText)
         {
             orderNumberText.text = $"#{orderNumber}";
