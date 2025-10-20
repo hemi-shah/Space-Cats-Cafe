@@ -4,6 +4,9 @@ using UnityEngine;
 public class CustomerManager : MonoBehaviour
 {
     [SerializeField] private OrderManager orderManager;
+    [SerializeField] private SeatingManager seatingManager;
+
+    private readonly Dictionary<int, CustomerSession> sessions = new();
     
     public static CustomerManager Instance { get; private set; }
 
@@ -18,13 +21,12 @@ public class CustomerManager : MonoBehaviour
         Instance = this;
     }
 
-    private readonly Dictionary<int, CustomerSession> sessions = new Dictionary<int, CustomerSession>();
+    //private readonly Dictionary<int, CustomerSession> sessions = new Dictionary<int, CustomerSession>();
 
     public int TakeOrderForCat(CatDefinition cat)
     {
         // generate random order
         var data = orderManager.GenerateRandomOrderData();
-
         int orderNum = orderManager.CreateOrder(data);
 
         sessions[orderNum] = new CustomerSession
@@ -34,7 +36,7 @@ public class CustomerManager : MonoBehaviour
             orderData = data
         };
 
-        Debug.Log($"[CustomerManager] Session stored for order {orderNum} (cat={cat.catName})");
+        //Debug.Log($"[CustomerManager] Session stored for order {orderNum} (cat={cat.catName})");
 
         return orderNum;
     }
@@ -46,6 +48,8 @@ public class CustomerManager : MonoBehaviour
     {
         orderManager.CompleteOrder(orderNumber);
         sessions.Remove(orderNumber);
+        
+        if (seatingManager) seatingManager.OnOrderCompleted(orderNumber);
     }
 
 

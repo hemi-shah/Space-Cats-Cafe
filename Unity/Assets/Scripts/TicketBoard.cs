@@ -54,8 +54,6 @@ public class TicketBoard : MonoBehaviour
         ticket.Setup(orderNumber, data);
         tickets[orderNumber] = ticket;
 
-        Debug.LogError($"[TicketBoard] Spawned ticket #{orderNumber} into Detail", this);
-
         // Wire up button click (no IPointerClickHandler needed)
         var btn = ticket.GetComponent<Button>();
         if (btn)
@@ -112,6 +110,13 @@ public class TicketBoard : MonoBehaviour
             MoveToDetail(clicked);
             currentDetailOrder = orderNumber;
         }
+        
+        // debug to see who owns ticket
+        if (CustomerManager.Instance &&
+            CustomerManager.Instance.TryGetSession(orderNumber, out var session))
+        {
+            Debug.Log($"[TicketBoard] Clicked ticket #{orderNumber} belongs to cat '{session.cat.catName}");
+        }
     }
 
     // move ticket to top row
@@ -163,7 +168,7 @@ public class TicketBoard : MonoBehaviour
             rt.sizeDelta = size;
         }
         
-        Debug.Log($"SetTicketSize called for {rt.name}: target size = {size.x} x {size.y}");
+        //Debug.Log($"SetTicketSize called for {rt.name}: target size = {size.x} x {size.y}");
     }
     
 
@@ -210,6 +215,20 @@ public class TicketBoard : MonoBehaviour
     {
         tickets.TryGetValue(orderNumber, out var t);
         return t;
+    }
+
+    public void ApplyCatToTicket(int orderNumber, CatDefinition cat)
+    {
+        var t = GetTicket(orderNumber);
+        if (t)
+        {
+            //t.SetCat(cat);
+            Debug.Log($"[TicketBoard] Applied cat '{cat.catName}' to order {orderNumber}");
+        }
+        else
+        {
+            Debug.LogWarning($"[TicketBoard Ticket #{orderNumber} not found when applying cat");
+        }
     }
     
     
