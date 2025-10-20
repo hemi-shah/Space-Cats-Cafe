@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c43102f5-94bc-4536-914e-0e107d38329b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Unity/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unity/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ScreenManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ScreenManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/SpaceCatsGame.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SpaceCatsGame.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,7 +120,7 @@
       <workItem from="1759980096344" duration="13170000" />
       <workItem from="1760515318332" duration="4247000" />
       <workItem from="1760523112827" duration="6134000" />
-      <workItem from="1760683095693" duration="1107000" />
+      <workItem from="1760683095693" duration="2548000" />
     </task>
     <servers />
   </component>
