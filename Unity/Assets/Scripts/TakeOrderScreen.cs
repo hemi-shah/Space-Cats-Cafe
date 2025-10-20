@@ -32,6 +32,7 @@ public class TakeOrderScreen : MonoBehaviour
         }
 
         // generate an order (this is hardcoded)
+        /*
         OrderTicketData data = new OrderTicketData
         {
             isHot = true,
@@ -43,6 +44,10 @@ public class TakeOrderScreen : MonoBehaviour
             syrup = SyrupType.Mocha,
             drinkName = "Hot Mocha Latte"
         };
+        */
+
+        // generate a random order
+        OrderTicketData data = orderManager.GenerateRandomOrderData();
 
         int orderNumber = orderManager.CreateOrder(data);
         
