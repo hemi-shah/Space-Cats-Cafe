@@ -34,7 +34,7 @@ public class ScreenManager : MonoBehaviour
         }
     
         // Then activate only the StartScreen
-        //ShowScreen("StartScreen"); // Make sure this line exists!
+        ShowScreen("StartScreen"); // Make sure this line exists!
     }
 
     // For main navigation flow (Start → ChooseCat → OrderPage, etc.)
