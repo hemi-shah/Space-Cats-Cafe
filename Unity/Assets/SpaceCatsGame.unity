@@ -481,7 +481,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &124921579
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2674,7 +2674,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &522029889
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5502,7 +5502,7 @@ MonoBehaviour:
     isStation: 0
   - screenId: OrderPageScreen
     screenObject: {fileID: 1188808055}
-    isStation: 1
+    isStation: 0
   - screenId: TakeOrderScreen
     screenObject: {fileID: 1853405841}
     isStation: 0
@@ -5529,6 +5529,9 @@ MonoBehaviour:
     isStation: 1
   - screenId: ToppingsScreen
     screenObject: {fileID: 1936925107}
+    isStation: 1
+  - screenId: IcedCustScreenGame
+    screenObject: {fileID: 130729006}
     isStation: 1
   ticketBoardRoot: {fileID: 1933170643}
   suppressBoardOnScreens:
@@ -6245,7 +6248,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1188808056
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8560,6 +8563,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 996801707}
+        m_TargetAssemblyTypeName: ScreenManager, Assembly-CSharp
+        m_MethodName: NavigateTo
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: IcedCustScreenGame
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1575205611
