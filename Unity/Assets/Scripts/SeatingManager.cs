@@ -39,7 +39,8 @@ public class SeatingManager : MonoBehaviour
 
     private void RefillBag()
     {
-        bag = new List<CatDefinition>(catalog ? catalog.cats : new List<CatDefinition>());
+        // Use customerCats instead of cats
+        bag = new List<CatDefinition>(catalog ? catalog.customerCats : new List<CatDefinition>());
         // simple shuffle
         for (int i = 0; i < bag.Count; i++)
         {

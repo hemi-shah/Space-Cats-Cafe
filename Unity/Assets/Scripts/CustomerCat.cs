@@ -45,6 +45,20 @@ public class CustomerCat : MonoBehaviour
         seating.OnSeatTaken(seatIndex, orderNum);
 
         screenManager.NavigateTo("TakeOrderScreen");
+    }
 
+    // Add this method to check if this customer is using the player's cat
+    public bool IsUsingPlayerCat()
+    {
+        if (cat == null) return false;
+        
+        // Check if this cat matches the player's selected cat
+        CatSelectionManager catManager = FindFirstObjectByType<CatSelectionManager>();
+        if (catManager != null)
+        {
+            return cat.catName == catManager.GetCurrentCatType();
+        }
+        
+        return false;
     }
 }
