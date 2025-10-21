@@ -24,6 +24,9 @@ public class ScreenManager : MonoBehaviour
     };
     [SerializeField] private bool hideBoardInsteadOfPushBack = false;
     
+    [Header("Menu Bar")]
+    [SerializeField] private GameObject menuBar; // Add this line
+    
     [Header("Station Screens")]
     [SerializeField] private string ordersStation = "OrderPageScreen";
     [SerializeField] private string customizationsStation = "CustomizationsScreen"; 
@@ -44,9 +47,9 @@ public class ScreenManager : MonoBehaviour
         }
     
         // Then activate only the StartScreen
-        //ShowScreen("StartScreen"); // Make sure this line exists!
+        ShowScreen("StartScreen"); // Changed back to StartScreen
 
-        ShowScreen("OrderPageScreen");  // for testing orderPageScreen
+        //ShowScreen("OrderPageScreen");  // Commented out testing line
     }
 
     // For main navigation flow (Start → ChooseCat → OrderPage, etc.)
@@ -113,6 +116,9 @@ public class ScreenManager : MonoBehaviour
         currentScreenId = screenId;
         UpdateTicketBoardLayer(screenId); // keep ticketboard on top
         
+        // Add this line to always show menu bar on game screens
+        UpdateMenuBarVisibility(screenId);
+        
         Debug.Log($"Showing: {screenId}");
     }
 
@@ -152,6 +158,35 @@ public class ScreenManager : MonoBehaviour
             // bring ticket board to top
             if (!ticketBoardRoot.activeSelf) ticketBoardRoot.SetActive(true);
             ticketBoardRoot.transform.SetAsLastSibling();
+        }
+    }
+
+    // Add this method to handle menu bar visibility
+    private void UpdateMenuBarVisibility(string screenId)
+    {
+        if (menuBar == null) return;
+        
+        // Always show menu bar on ALL screens after game starts
+        // Only hide on StartScreen, show on everything else
+        bool showMenuBar = screenId != "StartScreen";
+        
+        menuBar.SetActive(showMenuBar);
+        if (showMenuBar)
+        {
+            menuBar.transform.SetAsLastSibling();
+        }
+        
+        Debug.Log($"Menu bar on {screenId}: {showMenuBar}");
+    }
+
+    // ADD THIS METHOD: Manually show the menu bar
+    public void ShowMenuBar()
+    {
+        if (menuBar != null)
+        {
+            menuBar.SetActive(true);
+            menuBar.transform.SetAsLastSibling();
+            Debug.Log("Menu bar shown manually via ShowMenuBar()");
         }
     }
 
