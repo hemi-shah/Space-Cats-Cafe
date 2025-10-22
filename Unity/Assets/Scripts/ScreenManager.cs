@@ -47,7 +47,7 @@ public class ScreenManager : MonoBehaviour
         }
     
         // Then activate only the StartScreen
-        ShowScreen("StartScreen"); // Changed back to StartScreen
+        //ShowScreen("StartScreen"); // Changed back to StartScreen
 
         //ShowScreen("OrderPageScreen");  // Commented out testing line
     }

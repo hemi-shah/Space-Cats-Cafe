@@ -3189,12 +3189,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98abb17cc30b34447a53915bb81f7fca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CatSelectionManager
-  catCatalog: {fileID: 11400000, guid: d22c44b75c9ff49b78f67f1da4ae3416, type: 2}
+  catCatalog: {fileID: 0}
   playerTag: PlayerCat
   currentCatType: 
   playerCatImage: {fileID: 0}
-  asteroidCatButton: {fileID: 1877490847}
-  neptuneCatButton: {fileID: 1656830123}
+  asteroidCatButton: {fileID: 0}
+  neptuneCatButton: {fileID: 0}
 --- !u!1 &635351465
 GameObject:
   m_ObjectHideFlags: 0
@@ -5536,7 +5536,7 @@ MonoBehaviour:
   - ChooseCatScreen
   - OrderPageScreen
   hideBoardInsteadOfPushBack: 0
-  menuBar: {fileID: 2084903849}
+  menuBar: {fileID: 0}
   ordersStation: OrderPageScreen
   customizationsStation: CustomizationsScreen
   assembleStation: AssembleScreen
@@ -10921,7 +10921,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1936925108
 RectTransform:
   m_ObjectHideFlags: 0
