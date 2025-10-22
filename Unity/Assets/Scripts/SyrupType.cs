@@ -1,0 +1,1 @@
+public enum SyrupType { None, Caramel, Chocolate, Mocha }
