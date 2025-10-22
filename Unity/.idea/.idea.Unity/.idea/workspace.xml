@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c43102f5-94bc-4536-914e-0e107d38329b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/SpaceCatsGame.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SpaceCatsGame.unity" afterDir="false" />
-    </list>
+    <list default="true" id="c43102f5-94bc-4536-914e-0e107d38329b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -110,7 +108,7 @@
       <workItem from="1760523112827" duration="6134000" />
       <workItem from="1760683095693" duration="2548000" />
       <workItem from="1760994462522" duration="597000" />
-      <workItem from="1761023332539" duration="9875000" />
+      <workItem from="1761023332539" duration="10468000" />
     </task>
     <servers />
   </component>
