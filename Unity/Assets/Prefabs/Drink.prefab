@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -52.099976, y: 74.47003}
+  m_AnchoredPosition: {x: -28.5, y: 138.1}
   m_SizeDelta: {x: 200, y: 208}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2995131828548452818
@@ -109,7 +109,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -45.39998, y: 94.87001}
+  m_AnchoredPosition: {x: -28.4, y: 151.3}
   m_SizeDelta: {x: 240, y: 240}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6756506796194089954
@@ -184,7 +184,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -40.50004, y: 82.32001}
+  m_AnchoredPosition: {x: -28.5, y: 138.1}
   m_SizeDelta: {x: 200, y: 188}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4589219578551624011
@@ -338,7 +338,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -55.9, y: -200}
+  m_AnchoredPosition: {x: -55.9, y: -139.57}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8233766840770153738
@@ -387,3 +387,9 @@ MonoBehaviour:
   whippedCream: {fileID: 6973314158962673109}
   chocolateDrizzle: {fileID: 7095157229703052831}
   caramelDrizzle: {fileID: 1390542159252608418}
+  whippedPosHot: {x: -28.4, y: 151.3}
+  whippedPosCold: {x: -3.2, y: 191.1}
+  chocolatePosHot: {x: -28.5, y: 138.1}
+  chocolatePosCold: {x: -4.5, y: 180.2}
+  caramelPosHot: {x: -28.5, y: -138.1}
+  caramelPosCold: {x: -4.5, y: 180.2}

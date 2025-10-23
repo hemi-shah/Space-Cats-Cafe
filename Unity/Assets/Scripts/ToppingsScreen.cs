@@ -38,6 +38,7 @@ public class ToppingsScreen : MonoBehaviour
     {
         //startScreen.SetActive(false);
         //toppingsScreen.SetActive(true);
+        activeDrink = drinkManager.GetActiveDrink();
         
         if (whippedCream) startWhippedPos = whippedCream.GetComponent<RectTransform>().anchoredPosition;
         if (chocolateSyrup) startChocolatePos = chocolateSyrup.GetComponent<RectTransform>().anchoredPosition;
@@ -116,6 +117,7 @@ public class ToppingsScreen : MonoBehaviour
         
         // Reset rotation back upright
         rt.localRotation = Quaternion.identity;
+        Debug.Log("Set topping back upright");
 
         // Apply topping to the drink (change this call if your API is different)
         // e.g. drink.AddTopping(type); or drink.ApplyTopping(type);

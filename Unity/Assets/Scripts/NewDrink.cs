@@ -11,8 +11,10 @@ public class NewDrink : MonoBehaviour
     [Range(0, 3)] public int iceCubes = 0;
     public MilkType milk = MilkType.None;
     public SyrupType syrup = SyrupType.None;
-    public DrizzleType drizzle = DrizzleType.None;
+    //public DrizzleType drizzle = DrizzleType.None;
     public bool hasWhippedCream = false;
+    public bool hasChocolateDrizzle = false;
+    public bool hasCaramelDrizzle = false;
     public bool isServed = false;
     public Sprite drinkSprite;
     public Image drinkImage;
@@ -38,9 +40,18 @@ public class NewDrink : MonoBehaviour
     public Sprite icedFilledCupWithMilk_2ice;
     public Sprite icedFilledCupWithMilk_3ice;
 
-    [Header("Toppings")] public GameObject whippedCream;
+    [Header("Toppings")] 
+    public GameObject whippedCream;
     public GameObject chocolateDrizzle;
     public GameObject caramelDrizzle;
+
+    [Header("Topping Positions")] 
+    public Vector2 whippedPosHot;
+    public Vector2 whippedPosCold;
+    public Vector2 chocolatePosHot;
+    public Vector2 chocolatePosCold;
+    public Vector2 caramelPosHot;
+    public Vector2 caramelPosCold;
 
 
     public void UpdateVisual()
@@ -68,7 +79,51 @@ public class NewDrink : MonoBehaviour
             drinkImage.enabled = true;
         else
             drinkImage.enabled = false;
+    }
+    
+    private void SetChildToLocalPosition(GameObject child, Vector2 localPos)
+    {
+        if (child == null) return;
+
+        RectTransform rt = child.GetComponent<RectTransform>();
+        if (rt != null)
+        {
+            // Make anchors/pivot predictable so anchoredPosition behaves consistently
+            rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
+            rt.pivot = new Vector2(0.5f, 0.5f);
+
+            rt.anchoredPosition = localPos;
+        }
+        else
+        {
+            // fallback for non-UI objects: set localPosition (preserve z)
+            var lp = child.transform.localPosition;
+            child.transform.localPosition = new Vector3(localPos.x, localPos.y, lp.z);
+        }
+    }
+
+    public void UpdateToppingPositions(TemperatureType temp)
+    {
+        // set topping gameObject locations
+        if (whippedCream != null)
+        {
+            Vector2 pos = (temp == TemperatureType.Hot) ? whippedPosHot : whippedPosCold;
+            SetChildToLocalPosition(whippedCream, pos);
+        }
         
+        // chocolate drizzle
+        if (chocolateDrizzle != null)
+        {
+            Vector2 pos = (temp == TemperatureType.Hot) ? chocolatePosHot : chocolatePosCold;
+            SetChildToLocalPosition(chocolateDrizzle, pos);
+        }
+
+        // caramel drizzle
+        if (caramelDrizzle != null)
+        {
+            Vector2 pos = (temp == TemperatureType.Hot) ? caramelPosHot : caramelPosCold;
+            SetChildToLocalPosition(caramelDrizzle, pos);
+        }
     }
     
     public void SetInitialSprite(TemperatureType temp, int ice)
@@ -204,31 +259,21 @@ public class NewDrink : MonoBehaviour
             case ToppingsType.ChocolateSyrup:
                 if (whippedCream)
                 {
-                    drizzle = DrizzleType.Chocolate;
+                    //drizzle = DrizzleType.Chocolate;
+                    hasChocolateDrizzle = true;
                     chocolateDrizzle.SetActive(true);
                 }
                 break;
             case ToppingsType.CaramelSyrup:
                 if (whippedCream)
                 {
-                    drizzle = DrizzleType.Caramel;
+                    //drizzle = DrizzleType.Caramel;
+                    hasCaramelDrizzle = true;
                     caramelDrizzle.SetActive(true);
                 }
                 break;
         }
     }
-    
-    /*
-    public void AddTopping(ToppingsType type)
-    {
-        switch (type)
-        {
-            case ToppingsType.WhippedCream: hasWhippedCream = true; break;
-            case ToppingsType.ChocolateSyrup: syrup = SyrupType.Chocolate; break;
-            case ToppingsType.CaramelSyrup: syrup = SyrupType.Caramel; break;
-        }
-    }
-    */
 
     
 }

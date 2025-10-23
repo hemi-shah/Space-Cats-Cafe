@@ -5206,7 +5206,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &944102487
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11920,7 +11920,7 @@ MonoBehaviour:
   startScreen: {fileID: 928782936}
   toppingsScreen: {fileID: 1936925107}
   activeDrink: {fileID: 0}
-  drinkManager: {fileID: 0}
+  drinkManager: {fileID: 141053789}
   whippedCream: {fileID: 473509364}
   chocolateSyrup: {fileID: 392916486}
   caramelSyrup: {fileID: 710458369}
