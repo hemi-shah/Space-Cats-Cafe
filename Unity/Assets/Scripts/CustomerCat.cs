@@ -38,6 +38,9 @@ public class CustomerCat : MonoBehaviour
         if (!cat || !customerManager || !screenManager || seating == null || seatIndex < 0) 
             return;
 
+        // ADD CAT TO COLLECTION HERE - Before taking the order
+        AddCatToCollection(cat);
+
         int orderNum = customerManager.TakeOrderForCat(cat);
 
         gameObject.SetActive(false);
@@ -45,6 +48,32 @@ public class CustomerCat : MonoBehaviour
         seating.OnSeatTaken(seatIndex, orderNum);
 
         screenManager.NavigateTo("TakeOrderScreen");
+    }
+
+    // NEW: Directly add cat to collection when order is taken
+    private void AddCatToCollection(CatDefinition catToAdd)
+    {
+        if (catToAdd == null)
+        {
+            Debug.LogError("Cannot add null cat to collection!");
+            return;
+        }
+
+        // Try to find existing CatCollectionManager
+        CatCollectionManager collectionManager = FindFirstObjectByType<CatCollectionManager>();
+        
+        // If not found, create one
+        if (collectionManager == null)
+        {
+            Debug.Log("Creating new CatCollectionManager...");
+            GameObject collectionObj = new GameObject("CatCollectionManager");
+            collectionManager = collectionObj.AddComponent<CatCollectionManager>();
+            DontDestroyOnLoad(collectionObj);
+        }
+
+        // Add the cat to collection
+        collectionManager.AddCatToCollection(catToAdd);
+        Debug.Log($"✅ Added {catToAdd.catName} to cat collection! Total collected: {collectionManager.GetCollectionCount()}");
     }
 
     // Add this method to check if this customer is using the player's cat

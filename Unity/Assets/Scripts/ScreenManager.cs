@@ -23,7 +23,8 @@ public class ScreenManager : MonoBehaviour
     {
         "StartScreen",
         "ChooseCatScreen",
-        "OrderPageScreen"
+        "OrderPageScreen",
+        "CollectedCatsScreen",
     };
     [SerializeField] private bool hideBoardInsteadOfPushBack = false;
 
