@@ -53,12 +53,13 @@ public class NewDrink : MonoBehaviour
     public Vector2 caramelPosHot;
     public Vector2 caramelPosCold;
 
+    private ILogger logger = new DebugLogger();
 
     public void UpdateVisual()
     {
         if (drinkSprite == null)
         {
-            Debug.LogError("Drink Sprite is null");
+            logger.LogError("Drink Sprite is null");
         }
 
         if (drinkImage != null)
@@ -71,7 +72,7 @@ public class NewDrink : MonoBehaviour
     {
         if (drinkImage == null)
         {
-            Debug.LogError("Drink Image is null");
+            logger.LogError("Drink Image is null");
             return;
         }
         
@@ -156,19 +157,19 @@ public class NewDrink : MonoBehaviour
     
     public void PourEspresso()
     {
-        Debug.Log("Calling PourEspresso from NewDrink");
+        logger.Log("Calling PourEspresso from NewDrink");
         isEmpty = false;
 
         if (temperature == TemperatureType.Hot)
         {
             drinkSprite = hotFilledCup;
-            Debug.Log("Changed sprite to hot full");
+            logger.Log("Changed sprite to hot full");
         }
 
         if (temperature == TemperatureType.Cold)
         {
-            Debug.Log("cold drink to pour espresso");
-            Debug.Log("ice cubes: " + iceCubes);
+            logger.Log("cold drink to pour espresso");
+            logger.Log("ice cubes: " + iceCubes);
             if (iceCubes == 1)
             {
                 drinkSprite = icedFilledCup_1ice;
@@ -180,7 +181,7 @@ public class NewDrink : MonoBehaviour
             else if (iceCubes == 3)
             {
                 drinkSprite = icedFilledCup_3ice;
-                Debug.Log("drink sprite icedFilled 3 ice");
+                logger.Log("drink sprite icedFilled 3 ice");
             }
         }
         
@@ -245,7 +246,7 @@ public class NewDrink : MonoBehaviour
         }
         
         milk = selectedMilk;
-        Debug.Log("Milk type in drink: " + milk);
+        logger.Log("Milk type in drink: " + milk);
     }
 
     public void AddTopping(ToppingsType topping)

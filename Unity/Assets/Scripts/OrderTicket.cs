@@ -58,6 +58,8 @@ public class OrderTicket : MonoBehaviour
     
     public int OrderNumber { get; private set; }
     
+    private ILogger logger = new DebugLogger();
+    
     public void SetContentScale(float s)
     {
         if (contentRoot) contentRoot.localScale = new Vector3(s, s, 1f);
@@ -83,7 +85,7 @@ public class OrderTicket : MonoBehaviour
             var img = DrinkType.GetComponent<Image>();
             if (!img)
             {
-                Debug.LogWarning("[OrderTicket] DrinkType is missing Image");
+                logger.LogWarning("[OrderTicket] DrinkType is missing Image");
             }
             else
             {
@@ -92,7 +94,7 @@ public class OrderTicket : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("[OrderTicket] DrinkType reference is missing");
+            logger.LogWarning("[OrderTicket] DrinkType reference is missing");
         }
 
         if (whippedCreamTopping)

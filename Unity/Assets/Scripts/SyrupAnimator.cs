@@ -20,6 +20,8 @@ public class SyrupAnimator : MonoBehaviour
 
     private RectTransform rt;
     private SyrupType syrupType = SyrupType.None;
+    
+    private ILogger logger = new DebugLogger();
 
     private void Awake()
     {

@@ -15,11 +15,15 @@ public class CatSelectionManager : MonoBehaviour
     [SerializeField] private Button asteroidCatButton;
     [SerializeField] private Button neptuneCatButton;
 
+    private ILogger logger;
+
     // Static reference to easily access the current player cat type from other scripts
     public static string CurrentPlayerCatType { get; private set; }
 
     private void Start()
     {
+        logger = new DebugLogger();
+        
         FindPlayerCat();
         
         // Set up button click listeners
@@ -42,7 +46,7 @@ public class CatSelectionManager : MonoBehaviour
 
     public void SelectCat(string catType)
     {
-        Debug.Log($"=== SELECT CAT: {catType} ===");
+        logger.Log($"=== SELECT CAT: {catType} ===");
         
         // Double-check we have the player cat
         if (playerCatImage == null)
@@ -52,7 +56,7 @@ public class CatSelectionManager : MonoBehaviour
         
         if (playerCatImage == null)
         {
-            Debug.LogError("Player cat image is still null!");
+            logger.LogError("Player cat image is still null!");
             return;
         }
 
@@ -64,21 +68,21 @@ public class CatSelectionManager : MonoBehaviour
         if (selectedCat != null)
         {
             playerCatImage.sprite = selectedCat.catSprite;
-            Debug.Log($"Selected cat: {catType} for GameObject: {playerCatImage.gameObject.name}");
+            logger.Log($"Selected cat: {catType} for GameObject: {playerCatImage.gameObject.name}");
             
             // Verify the sprite was actually set
             if (playerCatImage.sprite == selectedCat.catSprite)
             {
-                Debug.Log($"✅ Sprite successfully assigned: {playerCatImage.sprite.name}");
+                logger.Log($"✅ Sprite successfully assigned: {playerCatImage.sprite.name}");
             }
             else
             {
-                Debug.LogError($"❌ Sprite assignment failed!");
+                logger.LogError($"❌ Sprite assignment failed!");
             }
         }
         else
         {
-            Debug.LogError($"Could not find cat type: {catType}");
+            logger.LogError($"Could not find cat type: {catType}");
         }
     }
 
@@ -87,7 +91,7 @@ public class CatSelectionManager : MonoBehaviour
     {
         if (catCatalog == null || catCatalog.playerCats == null)
         {
-            Debug.LogError("CatCatalog or playerCats is not assigned or is empty!");
+            logger.LogError("CatCatalog or playerCats is not assigned or is empty!");
             return null;
         }
 
@@ -99,7 +103,7 @@ public class CatSelectionManager : MonoBehaviour
             }
         }
 
-        Debug.LogError($"Player cat '{catName}' not found in catalog!");
+        logger.LogError($"Player cat '{catName}' not found in catalog!");
         return null;
     }
 
@@ -108,7 +112,7 @@ public class CatSelectionManager : MonoBehaviour
     {
         if (catCatalog == null || catCatalog.customerCats == null || catCatalog.customerCats.Count == 0)
         {
-            Debug.LogError("CatCatalog or customerCats is not assigned or is empty!");
+            logger.LogError("CatCatalog or customerCats is not assigned or is empty!");
             return null;
         }
 
@@ -125,30 +129,30 @@ public class CatSelectionManager : MonoBehaviour
             playerCatImage = playerCatObject.GetComponent<Image>();
             if (playerCatImage != null)
             {
-                Debug.Log($"✅ Found player cat: {playerCatObject.name} with Image component");
+                logger.Log($"✅ Found player cat: {playerCatObject.name} with Image component");
             }
             else
             {
-                Debug.LogError($"Found GameObject with tag '{playerTag}' but no Image component: {playerCatObject.name}");
+                logger.LogError($"Found GameObject with tag '{playerTag}' but no Image component: {playerCatObject.name}");
                 
                 // Try to find Image in children
                 playerCatImage = playerCatObject.GetComponentInChildren<Image>();
                 if (playerCatImage != null)
                 {
-                    Debug.Log($"✅ Found Image component in children: {playerCatImage.gameObject.name}");
+                    logger.Log($"✅ Found Image component in children: {playerCatImage.gameObject.name}");
                 }
             }
         }
         else
         {
-            Debug.LogError($"❌ No GameObject found with tag '{playerTag}'");
+            logger.LogError($"❌ No GameObject found with tag '{playerTag}'");
             
             // Debug: List all objects with tags
-            Debug.Log("All tagged objects in scene:");
+            logger.Log("All tagged objects in scene:");
             GameObject[] allTaggedObjects = GameObject.FindGameObjectsWithTag("PlayerCat");
             foreach (GameObject obj in allTaggedObjects)
             {
-                Debug.Log($" - {obj.name}");
+                logger.Log($" - {obj.name}");
             }
         }
     }

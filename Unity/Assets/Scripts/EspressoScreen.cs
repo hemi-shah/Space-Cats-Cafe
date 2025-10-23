@@ -11,22 +11,24 @@ public class EspressoScreen : MonoBehaviour
 
     [Header("Filling Settings")] 
     public float fillDelay = 1f;
+    
+    private ILogger logger = new DebugLogger();
 
     private void OnEnable()
     {
         MilkButton.SetActive(false);
         if (drinkManager == null)
         {
-            Debug.LogError("No drink manager");
+            logger.LogError("No drink manager");
         }
         
         activeDrink = drinkManager.GetActiveDrink();
         activeDrink.SetVisualOn(true);
-        Debug.Log("set drink visual on");
+        logger.Log("set drink visual on");
 
         if (activeDrink == null)
         {
-            Debug.LogError("No active drink");
+            logger.LogError("No active drink");
             return;
         }
     }
@@ -44,7 +46,6 @@ public class EspressoScreen : MonoBehaviour
         yield return new WaitForSeconds(fillDelay);
         
         activeDrink.PourEspresso();
-        //Debug.Log("poured espresso");
         yield return new WaitForSeconds(1f);
         MilkButton.SetActive(true);
     }

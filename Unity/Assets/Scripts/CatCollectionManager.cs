@@ -7,6 +7,9 @@ public class CatCollectionManager : MonoBehaviour
     [Header("Collected Cats")]
     [SerializeField] private List<CatDefinition> collectedCats = new List<CatDefinition>();
 
+    // Logger
+    private ILogger logger;
+    
     // ADD THIS EVENT
     public static event Action OnCollectionChanged;
 
@@ -15,17 +18,18 @@ public class CatCollectionManager : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("CatCollectionManager Awake called");
+        logger = new DebugLogger();
+        logger.Log("CatCollectionManager Awake called");
         
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            Debug.Log("CatCollectionManager instance created and set as singleton");
+            logger.Log("CatCollectionManager instance created and set as singleton");
         }
         else
         {
-            Debug.Log("Duplicate CatCollectionManager destroyed");
+            logger.Log("Duplicate CatCollectionManager destroyed");
             Destroy(gameObject);
         }
     }
@@ -34,7 +38,7 @@ public class CatCollectionManager : MonoBehaviour
     {
         if (cat == null) 
         {
-            Debug.LogError("Tried to add null cat to collection!");
+            logger.LogError("Tried to add null cat to collection!");
             return;
         }
         
@@ -42,21 +46,21 @@ public class CatCollectionManager : MonoBehaviour
         if (!collectedCats.Contains(cat))
         {
             collectedCats.Add(cat);
-            Debug.Log($"✅ SUCCESS: Added {cat.catName} to collection! Total: {collectedCats.Count}");
+            logger.Log($"✅ SUCCESS: Added {cat.catName} to collection! Total: {collectedCats.Count}");
             
             // ADD THIS LINE: Trigger the event when a cat is added
             OnCollectionChanged?.Invoke();
             
             // Debug: List all collected cats
-            Debug.Log("Current collection:");
+            logger.Log("Current collection:");
             foreach (var collectedCat in collectedCats)
             {
-                Debug.Log($" - {collectedCat.catName}");
+                logger.Log($" - {collectedCat.catName}");
             }
         }
         else
         {
-            Debug.Log($"ℹ️ {cat.catName} is already in collection");
+            logger.Log($"ℹ️ {cat.catName} is already in collection");
         }
     }
 

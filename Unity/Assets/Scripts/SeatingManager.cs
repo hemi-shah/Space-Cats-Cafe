@@ -26,6 +26,8 @@ public class SeatingManager : MonoBehaviour
 
     // anti-repeat bag
     private List<CatDefinition> bag;
+    
+    private ILogger logger = new DebugLogger();
 
     private void Awake()
     {
@@ -95,7 +97,7 @@ public class SeatingManager : MonoBehaviour
         orderToSeat[orderNumber] = seatIndex;
         // The card is already SetActive(false) in CustomerCard.OnTakeOrderClicked
         // We keep it hidden here until the order is completed
-        Debug.Log($"[Seating] Seat {seatIndex} now tied to order #{orderNumber}");
+        logger.Log($"[Seating] Seat {seatIndex} now tied to order #{orderNumber}");
     }
 
     // Called when the order is actually completed (served)

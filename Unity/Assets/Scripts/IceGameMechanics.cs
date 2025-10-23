@@ -27,6 +27,8 @@ public class IceGameMechanics : MonoBehaviour
     private int iceCounter = 0;
     private bool isPlaying = false;
 
+    private ILogger logger = new DebugLogger();
+
     private void OnEnable()
     {
         iceCounter = 0;
@@ -68,7 +70,7 @@ public class IceGameMechanics : MonoBehaviour
             SpawnIce();
             yield return new WaitForSeconds(iceFallInterval);
         }
-        Debug.Log("Finished spawning all ice cubes");
+        logger.Log("Finished spawning all ice cubes");
     }
 
     private void SpawnIce()
@@ -81,7 +83,7 @@ public class IceGameMechanics : MonoBehaviour
         BoxCollider2D iceCollider = ice.GetComponent<BoxCollider2D>();
 
         iceCollider.isTrigger = true;
-        Debug.Log("Ice has BoxCollider2D, isTrigger: " + iceCollider.isTrigger);
+        logger.Log("Ice has BoxCollider2D, isTrigger: " + iceCollider.isTrigger);
 
         RectTransform iceRect = ice.GetComponent<RectTransform>();
         if (iceRect != null)
@@ -107,7 +109,7 @@ public class IceGameMechanics : MonoBehaviour
     public void OnIceCaught()
     {
         iceCounter++;
-        Debug.Log("Ice caught! Total: " + iceCounter);
+        logger.Log("Ice caught! Total: " + iceCounter);
 
         if (cupAnimator != null && cupAnimator.cupRect != null)
         {
@@ -141,7 +143,7 @@ public class IceGameMechanics : MonoBehaviour
 
         if (iceCounter >= requiredIce)
         {
-            Debug.Log("Required ice reached! Ending minigame...");
+            logger.Log("Required ice reached! Ending minigame...");
             EndMiniGame();
         }
     }
@@ -159,7 +161,7 @@ public class IceGameMechanics : MonoBehaviour
             cupAnimator.SlideToCenter();  
         }
 
-        Debug.Log(iceCounter + " cubes caught. Ice mini-game complete!");
+        logger.Log(iceCounter + " cubes caught. Ice mini-game complete!");
         
         NewDrink activeDrink = drinkManager.GetActiveDrink();
 
@@ -167,7 +169,7 @@ public class IceGameMechanics : MonoBehaviour
         {
             activeDrink.SetIceCubes(iceCounter);
         }
-        Debug.Log("Drink stats: " + drinkManager.GetActiveDrink().GetIceCubes());
+        logger.Log("Drink stats: " + drinkManager.GetActiveDrink().GetIceCubes());
         
         //EspressoButton.SetActive(true);
     }

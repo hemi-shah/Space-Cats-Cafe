@@ -25,13 +25,15 @@ public class TicketBoard : MonoBehaviour
     
     public int? GetCurrentDetailOrder() => currentDetailOrder;
     
+    private ILogger logger = new DebugLogger();
+    
     public void SpawnTicket(int orderNumber, OrderTicketData data)
     {
-        Debug.Log($"🎫 [TicketBoard] SpawnTicket called for order #{orderNumber}");
+        logger.Log($"🎫 [TicketBoard] SpawnTicket called for order #{orderNumber}");
         
         if (!ticketPrefab || !topRowParent || !detailParent)
         {
-            Debug.LogError("[TicketBoard] Assign ticketPrefab, topRowParent, detailParent");
+            logger.LogError("[TicketBoard] Assign ticketPrefab, topRowParent, detailParent");
             return;
         }
 
@@ -82,67 +84,67 @@ public class TicketBoard : MonoBehaviour
     // NEW: Add cat to collection when ticket is created
     private void TryAddCatToCollection(int orderNumber)
     {
-        Debug.Log($"🔍 [TicketBoard] TryAddCatToCollection for order #{orderNumber}");
+        logger.Log($"🔍 [TicketBoard] TryAddCatToCollection for order #{orderNumber}");
         
         if (CustomerManager.Instance == null)
         {
-            Debug.LogError("❌ CustomerManager instance is null!");
+            logger.LogError("❌ CustomerManager instance is null!");
             return;
         }
 
-        Debug.Log($"✅ CustomerManager.Instance found: {CustomerManager.Instance != null}");
+        logger.Log($"✅ CustomerManager.Instance found: {CustomerManager.Instance != null}");
 
         // Try to get the session to find which cat this order belongs to
         if (CustomerManager.Instance.TryGetSession(orderNumber, out var session))
         {
-            Debug.Log($"✅ Session found for order #{orderNumber}");
+            logger.Log($"✅ Session found for order #{orderNumber}");
             
             if (session.cat != null)
             {
-                Debug.Log($"✅ Cat found in session: {session.cat.catName}");
+                logger.Log($"✅ Cat found in session: {session.cat.catName}");
                 AddCatToCollection(session.cat);
             }
             else
             {
-                Debug.LogWarning($"❌ Session for order {orderNumber} has null cat!");
+                logger.LogWarning($"❌ Session for order {orderNumber} has null cat!");
             }
         }
         else
         {
-            Debug.LogWarning($"❌ Could not find session for order {orderNumber}");
-            Debug.Log($"Available sessions in CustomerManager: {CustomerManager.Instance.GetSessionCount()}");
+            logger.LogWarning($"❌ Could not find session for order {orderNumber}");
+            logger.Log($"Available sessions in CustomerManager: {CustomerManager.Instance.GetSessionCount()}");
         }
     }
 
     // NEW: Add cat to collection
     private void AddCatToCollection(CatDefinition cat)
     {
-        Debug.Log($"🐱 [TicketBoard] AddCatToCollection called for: {cat?.catName}");
+        logger.Log($"🐱 [TicketBoard] AddCatToCollection called for: {cat?.catName}");
         
         if (cat == null)
         {
-            Debug.LogError("❌ Cannot add null cat to collection!");
+            logger.LogError("❌ Cannot add null cat to collection!");
             return;
         }
 
         // Try to find existing CatCollectionManager
         CatCollectionManager collectionManager = FindObjectOfType<CatCollectionManager>();
-        Debug.Log($"🔍 CatCollectionManager found: {collectionManager != null}");
+        logger.Log($"🔍 CatCollectionManager found: {collectionManager != null}");
         
         // If not found, create one
         if (collectionManager == null)
         {
-            Debug.Log("🆕 Creating new CatCollectionManager...");
+            logger.Log("🆕 Creating new CatCollectionManager...");
             GameObject collectionObj = new GameObject("CatCollectionManager");
             collectionManager = collectionObj.AddComponent<CatCollectionManager>();
             DontDestroyOnLoad(collectionObj);
-            Debug.Log("✅ CatCollectionManager created successfully");
+            logger.Log("✅ CatCollectionManager created successfully");
         }
 
         // Add the cat to collection
-        Debug.Log($"📸 Attempting to add {cat.catName} to collection...");
+        logger.Log($"📸 Attempting to add {cat.catName} to collection...");
         collectionManager.AddCatToCollection(cat);
-        Debug.Log($"✅ AddCatToCollection completed for {cat.catName}");
+        logger.Log($"✅ AddCatToCollection completed for {cat.catName}");
     }
 
     // When ticket clicked, moves between detail area and top row
@@ -178,7 +180,7 @@ public class TicketBoard : MonoBehaviour
         if (CustomerManager.Instance &&
             CustomerManager.Instance.TryGetSession(orderNumber, out var session))
         {
-            Debug.Log($"[TicketBoard] Clicked ticket #{orderNumber} belongs to cat '{session.cat.catName}");
+            //logger.Log($"[TicketBoard] Clicked ticket #{orderNumber} belongs to cat '{session.cat.catName}");
         }
     }
 
@@ -283,11 +285,11 @@ public class TicketBoard : MonoBehaviour
         if (t)
         {
             //t.SetCat(cat);
-            Debug.Log($"[TicketBoard] Applied cat '{cat.catName}' to order {orderNumber}");
+            //Debug.Log($"[TicketBoard] Applied cat '{cat.catName}' to order {orderNumber}");
         }
         else
         {
-            Debug.LogWarning($"[TicketBoard Ticket #{orderNumber} not found when applying cat");
+            //Debug.LogWarning($"[TicketBoard Ticket #{orderNumber} not found when applying cat");
         }
     }
 }

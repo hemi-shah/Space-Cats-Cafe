@@ -13,6 +13,8 @@ public class DrinkSelector : MonoBehaviour
     private bool selected = false;
     
     public DrinkManager drinkManager;
+    
+    private ILogger logger = new DebugLogger();
 
     public void SelectColdDrink()
     {
@@ -22,11 +24,11 @@ public class DrinkSelector : MonoBehaviour
         //currentDrink = new Drink(false);
         if (drinkManager == null)
         {
-            Debug.LogError("DrinkManager not set");
+            logger.LogError("DrinkManager not set");
         }
         
         currentDrink = drinkManager.CreateDrink(TemperatureType.Cold);
-        Debug.Log("Cold drink selected!");
+        logger.Log("Cold drink selected!");
         _disableButtons();
 
         coldCupAnimator.SlideToCenter();
@@ -40,7 +42,7 @@ public class DrinkSelector : MonoBehaviour
 
         //currentDrink = new Drink(true);
         currentDrink = drinkManager.CreateDrink(TemperatureType.Hot);
-        Debug.Log("Hot drink selected!");
+        logger.Log("Hot drink selected!");
         _disableButtons();
 
         hotCupAnimator.SlideToCenter();

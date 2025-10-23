@@ -18,6 +18,8 @@ public class OrderManager : MonoBehaviour
 
     private int nextOrderNumber = 1;
     private List<int> activeOrderNumbers = new List<int>();
+    
+    private ILogger logger = new DebugLogger();
 
     // Create an order given specific data
     public int CreateOrder(OrderTicketData data)
@@ -27,12 +29,12 @@ public class OrderManager : MonoBehaviour
 
         if (ticketBoard)
         {
-            Debug.Log($"[OrderManager] Spawning ticket #{orderNumber}");
+            logger.Log($"[OrderManager] Spawning ticket #{orderNumber}");
             ticketBoard.SpawnTicket(orderNumber, data);
         }
         else
         {
-            Debug.LogError("[OrderManager] ticketBoard ref is missing", this);
+            logger.LogError("[OrderManager] ticketBoard ref is missing");
         }
         
         return orderNumber;

@@ -7,6 +7,8 @@ public class IceCube : MonoBehaviour
     private RectTransform cupRect;
     private IceGameMechanics gameMechanics;
 
+    private ILogger logger = new DebugLogger();
+
     public void Init(RectTransform cup, IceGameMechanics mechanics)
     {
         rect = GetComponent<RectTransform>();

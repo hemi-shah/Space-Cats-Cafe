@@ -10,6 +10,8 @@ public class CustomerManager : MonoBehaviour
     
     public static CustomerManager Instance { get; private set; }
 
+    private ILogger logger = new DebugLogger();
+
     private void Awake()
     {
         if (Instance && Instance != this)
@@ -69,7 +71,7 @@ public class CustomerManager : MonoBehaviour
 
         // Add the cat to collection
         collectionManager.AddCatToCollection(cat);
-        Debug.Log($"📸 Added {cat.catName} to cat collection!");
+        logger.Log($"📸 Added {cat.catName} to cat collection!");
     }
     public int GetSessionCount()
     {
