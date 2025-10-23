@@ -19,6 +19,7 @@ public class EspressoScreen : MonoBehaviour
         }
         
         activeDrink = drinkManager.GetActiveDrink();
+        activeDrink.SetVisualOn(true);
 
         if (activeDrink == null)
         {
@@ -40,6 +41,7 @@ public class EspressoScreen : MonoBehaviour
         yield return new WaitForSeconds(fillDelay);
         
         activeDrink.PourEspresso();
+        Debug.Log("poured espresso");
     }
     
     

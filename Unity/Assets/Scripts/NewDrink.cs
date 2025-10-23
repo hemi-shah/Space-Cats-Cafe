@@ -1,5 +1,6 @@
 
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NewDrink : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class NewDrink : MonoBehaviour
     public bool hasWhippedCream = false;
     public bool isServed = false;
     public Sprite drinkSprite;
+    public Image drinkImage;
 
     [Header("Empty Cup Visuals")] 
     public Sprite hotEmptyCup;
@@ -36,6 +38,33 @@ public class NewDrink : MonoBehaviour
     public Sprite icedFilledCupWithMilk_3ice;
 
 
+    public void UpdateVisual()
+    {
+        if (drinkSprite == null)
+        {
+            Debug.LogError("Drink Sprite is null");
+        }
+
+        if (drinkImage != null)
+        {
+            drinkImage.sprite = drinkSprite;
+        }
+    }
+
+    public void SetVisualOn(bool isOn)
+    {
+        if (drinkImage == null)
+        {
+            Debug.LogError("Drink Image is null");
+            return;
+        }
+        
+        if (isOn)
+            drinkImage.enabled = true;
+        else
+            drinkImage.enabled = false;
+    }
+    
     public void SetInitialSprite(TemperatureType temp, int ice)
     {
         if (temp.Equals(TemperatureType.Hot))
@@ -54,6 +83,8 @@ public class NewDrink : MonoBehaviour
             else if (ice == 3)
                 drinkSprite = icedEmptyCup_3ice;
         }
+        
+        SetVisualOn(false);  // hide at first
     }
     
     
@@ -81,6 +112,8 @@ public class NewDrink : MonoBehaviour
                 drinkSprite = icedFilledCup_3ice;
             }
         }
+        
+        UpdateVisual();
     }
     
 
@@ -128,133 +161,11 @@ public class NewDrink : MonoBehaviour
             drinkSprite = icedEmptyCup_2ice;
         else if (ice == 3)
             drinkSprite = icedEmptyCup_3ice;
+        
+        UpdateVisual();
     }
     
     public int GetIceCubes() => iceCubes;
 
-    // hot or cold
-    // if cold: number of ice cubes (1 to 3)
-    // milk type or none
-    // syrup type
-    // whipped cream topping bool
-    // if whipped, choc or caramel or none
-    // isEmpty
-    // sprite
-    // name based on contents (iced / hot, etc)
-
-    /*
-    [Header("Properties")]
-    public DrinkRecipe recipe;
-    public bool isServed;
-    public int currentIce; // runtime may change this if player adds/steals ice
-    public bool hasWhip;   // if whip can be added/removed during play
-    public TemperatureType temperature;
-
-    [Header("Visuals")]
-    public Sprite runtimeSprite;
-    */
-
-    /*
-
-    public string Name
-    {
-        get
-        {
-            if (recipe != null)
-                return recipe.GetDisplayName();
-            else
-                return "Custom Drink";
-        }
-    }
-
-    public Sprite Sprite
-    {
-        get
-        {
-            if (recipe != null && recipe.overrideSprite != null)
-                return recipe.overrideSprite;
-            else
-                return recipe.overrideSprite;
-        }
-    }
-
-    // constructor to start with a temperature and number of ice
-    public NewDrink(TemperatureType temperature, int startingIce)
-    {
-        this.recipe = null;
-        this.temperature = temperature;
-        this.isServed = false;
-        this.hasWhip = false;
-        this.runtimeSprite = null;
-
-        if (temperature == TemperatureType.Cold)
-        {
-            this.currentIce = Mathf.Clamp(startingIce, 0, 3);
-        }
-        else
-        {
-            this.currentIce = 0;
-        }
-    }
-
-    public NewDrink(DrinkRecipe recipe)
-    {
-        this.recipe = recipe;
-        this.isServed = false;
-
-        if (recipe != null)
-        {
-            if (recipe.temperature == TemperatureType.Cold)
-            {
-                this.currentIce = Mathf.Clamp(recipe.iceCubes, 0, 3);
-            }
-            else
-            {
-                this.currentIce = 0;
-            }
-
-            this.hasWhip = recipe.hasWhippedCream;
-            this.runtimeSprite = recipe.overrideSprite;
-        }
-        else
-        {
-            this.currentIce = 0;
-            this.hasWhip = false;
-            this.runtimeSprite = null;
-        }
-    }
-
-    // Runtime mutator methods
-    public void AddIce()
-    {
-        if (recipe != null || recipe.temperature == TemperatureType.Cold)
-        {
-            currentIce = Mathf.Clamp(currentIce + 1, 0, 3);
-        }
-    }
-
-    public void RemoveIce()
-    {
-        currentIce = Mathf.Max(0, currentIce - 1);
-    }
-
-    public void ToggleWhip()
-    {
-        hasWhip = !hasWhip;
-    }
-
-    public void Serve()
-    {
-        isServed = true;
-    }
-
-    public bool IsIced()
-    {
-        if (recipe == null)
-        {
-            return currentIce > 0;
-        }
-        return recipe.temperature == TemperatureType.Cold;
-    }
-    */
+    
 }

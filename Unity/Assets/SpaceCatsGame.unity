@@ -6847,7 +6847,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 0.73419976, b: 0.3443396, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6856,10 +6856,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
-    m_FontStyle: 0
+    m_FontSize: 40
+    m_FontStyle: 1
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -6867,7 +6867,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: POUR
 --- !u!222 &1289257163
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7758,7 +7758,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -89.5, y: 283.3}
-  m_SizeDelta: {x: 200, y: 80}
+  m_SizeDelta: {x: 190, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1458676167
 MonoBehaviour:
@@ -7829,7 +7829,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9514,7 +9514,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -12236,11 +12236,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2402991065556769263, guid: 761b9a6a2b4774805a0285a5f0bd9170, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 2402991065556769263, guid: 761b9a6a2b4774805a0285a5f0bd9170, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 2402991065556769263, guid: 761b9a6a2b4774805a0285a5f0bd9170, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12272,11 +12272,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2402991065556769263, guid: 761b9a6a2b4774805a0285a5f0bd9170, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -55.9
       objectReference: {fileID: 0}
     - target: {fileID: 2402991065556769263, guid: 761b9a6a2b4774805a0285a5f0bd9170, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -139.57
       objectReference: {fileID: 0}
     - target: {fileID: 2402991065556769263, guid: 761b9a6a2b4774805a0285a5f0bd9170, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
