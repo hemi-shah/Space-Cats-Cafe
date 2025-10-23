@@ -4,7 +4,8 @@ using UnityEngine;
 public class SeatingManager : MonoBehaviour
 {
     [Header("Setup")]
-    [SerializeField] private CatCatalog catalog;
+    [SerializeField]
+    public CatCatalog catalog;
     [SerializeField] private CustomerCat customerCardPrefab;
     [SerializeField] private RectTransform spawnParent; // panel under OrderPageScreen Canvas
 
@@ -104,6 +105,28 @@ public class SeatingManager : MonoBehaviour
             return;
 
         orderToSeat.Remove(orderNumber);
+
+        // Destroy the old (hidden) card, and spawn a new random cat in that seat
+        if (seatToCard.TryGetValue(seatIndex, out var card) && card)
+        {
+            Destroy(card.gameObject);
+            seatToCard.Remove(seatIndex);
+        }
+
+        SpawnAtSeat(seatIndex);
+    }
+    public void OnOrderCompleted(int orderNumber, CatDefinition servedCat)
+    {
+        if (!orderToSeat.TryGetValue(orderNumber, out var seatIndex))
+            return;
+
+        orderToSeat.Remove(orderNumber);
+
+        // Add the served cat to collection
+        if (servedCat != null)
+        {
+            CatCollectionManager.Instance.AddCatToCollection(servedCat);
+        }
 
         // Destroy the old (hidden) card, and spawn a new random cat in that seat
         if (seatToCard.TryGetValue(seatIndex, out var card) && card)

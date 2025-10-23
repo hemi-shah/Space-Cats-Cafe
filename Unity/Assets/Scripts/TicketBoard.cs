@@ -3,8 +3,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-// basically all ChatGPT bc like idk this already took like hours
-
 public class TicketBoard : MonoBehaviour
 {
     public event Action<int?> OnDetailOrderChanged;
@@ -29,6 +27,8 @@ public class TicketBoard : MonoBehaviour
     
     public void SpawnTicket(int orderNumber, OrderTicketData data)
     {
+        Debug.Log($"🎫 [TicketBoard] SpawnTicket called for order #{orderNumber}");
+        
         if (!ticketPrefab || !topRowParent || !detailParent)
         {
             Debug.LogError("[TicketBoard] Assign ticketPrefab, topRowParent, detailParent");
@@ -42,10 +42,6 @@ public class TicketBoard : MonoBehaviour
             MoveToTopRow(currentBig);
         }
         
-        // First ticket appears big, others go to top row
-        //bool spawnInDetail = currentDetailOrder == null;
-        //RectTransform parent = spawnInDetail ? detailParent : topRowParent;
-
         // Create ticket
         var ticket = Instantiate(ticketPrefab, detailParent);
         var rt = (RectTransform)ticket.transform;
@@ -67,9 +63,10 @@ public class TicketBoard : MonoBehaviour
         ticket.SetContentScale(largeContentScale);
         ticket.transform.SetAsLastSibling();
         
-        //currentDetailOrder = orderNumber;
         SetDetailOrder(orderNumber);
 
+        // NEW: Try to get the cat from CustomerManager and add to collection
+        TryAddCatToCollection(orderNumber);
     }
     
     public void RemoveTicket(int orderNumber)
@@ -82,6 +79,72 @@ public class TicketBoard : MonoBehaviour
         }
     }
     
+    // NEW: Add cat to collection when ticket is created
+    private void TryAddCatToCollection(int orderNumber)
+    {
+        Debug.Log($"🔍 [TicketBoard] TryAddCatToCollection for order #{orderNumber}");
+        
+        if (CustomerManager.Instance == null)
+        {
+            Debug.LogError("❌ CustomerManager instance is null!");
+            return;
+        }
+
+        Debug.Log($"✅ CustomerManager.Instance found: {CustomerManager.Instance != null}");
+
+        // Try to get the session to find which cat this order belongs to
+        if (CustomerManager.Instance.TryGetSession(orderNumber, out var session))
+        {
+            Debug.Log($"✅ Session found for order #{orderNumber}");
+            
+            if (session.cat != null)
+            {
+                Debug.Log($"✅ Cat found in session: {session.cat.catName}");
+                AddCatToCollection(session.cat);
+            }
+            else
+            {
+                Debug.LogWarning($"❌ Session for order {orderNumber} has null cat!");
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"❌ Could not find session for order {orderNumber}");
+            Debug.Log($"Available sessions in CustomerManager: {CustomerManager.Instance.GetSessionCount()}");
+        }
+    }
+
+    // NEW: Add cat to collection
+    private void AddCatToCollection(CatDefinition cat)
+    {
+        Debug.Log($"🐱 [TicketBoard] AddCatToCollection called for: {cat?.catName}");
+        
+        if (cat == null)
+        {
+            Debug.LogError("❌ Cannot add null cat to collection!");
+            return;
+        }
+
+        // Try to find existing CatCollectionManager
+        CatCollectionManager collectionManager = FindObjectOfType<CatCollectionManager>();
+        Debug.Log($"🔍 CatCollectionManager found: {collectionManager != null}");
+        
+        // If not found, create one
+        if (collectionManager == null)
+        {
+            Debug.Log("🆕 Creating new CatCollectionManager...");
+            GameObject collectionObj = new GameObject("CatCollectionManager");
+            collectionManager = collectionObj.AddComponent<CatCollectionManager>();
+            DontDestroyOnLoad(collectionObj);
+            Debug.Log("✅ CatCollectionManager created successfully");
+        }
+
+        // Add the cat to collection
+        Debug.Log($"📸 Attempting to add {cat.catName} to collection...");
+        collectionManager.AddCatToCollection(cat);
+        Debug.Log($"✅ AddCatToCollection completed for {cat.catName}");
+    }
+
     // When ticket clicked, moves between detail area and top row
     public void OnTicketClicked(int orderNumber)
     {
@@ -167,10 +230,7 @@ public class TicketBoard : MonoBehaviour
         {
             rt.sizeDelta = size;
         }
-        
-        //Debug.Log($"SetTicketSize called for {rt.name}: target size = {size.x} x {size.y}");
     }
-    
 
     private void SetTicketVisual(OrderTicket t, Vector2 size, float scale)
     {
@@ -230,6 +290,4 @@ public class TicketBoard : MonoBehaviour
             Debug.LogWarning($"[TicketBoard Ticket #{orderNumber} not found when applying cat");
         }
     }
-    
-    
 }
