@@ -10,6 +10,9 @@ public class ScreenManager : MonoBehaviour
         public GameObject screenObject;
         public bool isStation = false; // Stations remain active in background
     }
+    
+    public DrinkManager drinkManager;
+    private NewDrink activeDrink;
 
     [Header("Screen References")]
     [SerializeField] private List<GameScreen> screens = new List<GameScreen>();
@@ -23,6 +26,15 @@ public class ScreenManager : MonoBehaviour
         "OrderPageScreen"
     };
     [SerializeField] private bool hideBoardInsteadOfPushBack = false;
+
+    [Header("Active Drink Visibility")]
+    [SerializeField] private List<string> suppressActiveDrink = new List<string>()
+    {
+        "StartScreen",
+        "ChooseCatScreen",
+        "OrderPageScreen",
+        "TakeOrderScreen"
+    };
     
     [Header("Menu Bar")]
     [SerializeField] private GameObject menuBar; // Add this line
@@ -110,6 +122,7 @@ public class ScreenManager : MonoBehaviour
 
     private void ShowScreen(string screenId)
     {
+        activeDrink = drinkManager.GetActiveDrink();
         var screen = screenDictionary[screenId];
         screen.screenObject.SetActive(true);
         BringToForeground(screen);
@@ -118,6 +131,11 @@ public class ScreenManager : MonoBehaviour
         
         // Add this line to always show menu bar on game screens
         UpdateMenuBarVisibility(screenId);
+
+        if (activeDrink != null)
+        {
+            BringActiveDrinkToFront(screenId);
+        }
         
         Debug.Log($"Showing: {screenId}");
     }
@@ -158,6 +176,23 @@ public class ScreenManager : MonoBehaviour
             // bring ticket board to top
             if (!ticketBoardRoot.activeSelf) ticketBoardRoot.SetActive(true);
             ticketBoardRoot.transform.SetAsLastSibling();
+        }
+    }
+
+    private void BringActiveDrinkToFront(string screenId)
+    {
+        if (activeDrink == null) return;
+        
+        bool suppress = suppressActiveDrink.Contains(screenId);
+        
+        if (suppress)
+        {
+            activeDrink.transform.SetAsFirstSibling();
+        }
+
+        else
+        {
+            activeDrink.transform.SetAsLastSibling();
         }
     }
 

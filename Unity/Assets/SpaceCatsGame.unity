@@ -5394,7 +5394,6 @@ RectTransform:
   - {fileID: 821915388}
   - {fileID: 774467668}
   - {fileID: 2007686716}
-  - {fileID: 1458676165}
   - {fileID: 2126096980}
   - {fileID: 1345586146}
   - {fileID: 1936925108}
@@ -5525,6 +5524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7582165fabd18451aa15e24b1368d5fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScreenManager
+  drinkManager: {fileID: 141053789}
   screens:
   - screenId: StartScreen
     screenObject: {fileID: 928782936}
@@ -5571,6 +5571,11 @@ MonoBehaviour:
   - ChooseCatScreen
   - OrderPageScreen
   hideBoardInsteadOfPushBack: 0
+  suppressActiveDrink:
+  - StartScreen
+  - ChooseCatScreen
+  - OrderPageScreen
+  - TakeOrderScreen
   menuBar: {fileID: 2084903849}
   ordersStation: OrderPageScreen
   customizationsStation: CustomizationsScreen
@@ -7728,7 +7733,6 @@ GameObject:
   - component: {fileID: 1458676169}
   - component: {fileID: 1458676168}
   - component: {fileID: 1458676167}
-  - component: {fileID: 1458676166}
   m_Layer: 5
   m_Name: StartButton
   m_TagString: Untagged
@@ -7749,27 +7753,13 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1289257161}
-  m_Father: {fileID: 982125261}
+  m_Father: {fileID: 1833624387}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -89.5, y: 283.3}
   m_SizeDelta: {x: 200, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1458676166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1458676164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f86b68cd58e24b8da006d661eb65a99, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EspressoScreen
-  drink: {fileID: 2007686713}
-  startButton: {fileID: 1458676164}
 --- !u!114 &1458676167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7814,9 +7804,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2007686713}
-        m_TargetAssemblyTypeName: tempDrink, Assembly-CSharp
-        m_MethodName: FillCup
+      - m_Target: {fileID: 1833624388}
+        m_TargetAssemblyTypeName: EspressoScreen, Assembly-CSharp
+        m_MethodName: PourEspresso
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9968,7 +9958,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1458676165}
   m_Father: {fileID: 982125261}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -9988,8 +9979,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f86b68cd58e24b8da006d661eb65a99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  drink: {fileID: 2007686713}
+  drinkManager: {fileID: 141053789}
+  activeDrink: {fileID: 0}
   startButton: {fileID: 1458676164}
+  fillDelay: 1
 --- !u!114 &1833624389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11501,7 +11494,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2007686713
 MonoBehaviour:
   m_ObjectHideFlags: 0

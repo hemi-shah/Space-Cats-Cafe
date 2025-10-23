@@ -6,6 +6,7 @@ public class NewDrink : MonoBehaviour
 
     [Header("Drink Data")] 
     public TemperatureType temperature = TemperatureType.Hot;
+    public bool isEmpty = true;
     [Range(0, 3)] public int iceCubes = 0;
     public MilkType milk = MilkType.None;
     public SyrupType syrup = SyrupType.None;
@@ -33,6 +34,55 @@ public class NewDrink : MonoBehaviour
     public Sprite icedFilledCupWithMilk_1ice;
     public Sprite icedFilledCupWithMilk_2ice;
     public Sprite icedFilledCupWithMilk_3ice;
+
+
+    public void SetInitialSprite(TemperatureType temp, int ice)
+    {
+        if (temp.Equals(TemperatureType.Hot))
+        {
+            drinkSprite = hotEmptyCup;
+        }
+
+        if (temp.Equals(TemperatureType.Cold))
+        {
+            if (ice == 0)
+                drinkSprite = icedEmptyCup_0ice;
+            else if (ice == 1)
+                drinkSprite = icedEmptyCup_1ice;
+            else if (ice == 2)
+                drinkSprite = icedEmptyCup_2ice;
+            else if (ice == 3)
+                drinkSprite = icedEmptyCup_3ice;
+        }
+    }
+    
+    
+    public void PourEspresso()
+    {
+        isEmpty = false;
+
+        if (temperature == TemperatureType.Hot)
+        {
+            drinkSprite = hotFilledCup;
+        }
+
+        if (temperature == TemperatureType.Cold)
+        {
+            if (iceCubes == 1)
+            {
+                drinkSprite = icedFilledCup_1ice;
+            }
+            else if (iceCubes == 2) 
+            {
+                drinkSprite = icedFilledCup_2ice;
+            }
+            else if (iceCubes == 3)
+            {
+                drinkSprite = icedFilledCup_3ice;
+            }
+        }
+    }
+    
 
     /*
     [Header("Cup With No Milk and Whipped Cream Visuals")]
@@ -67,9 +117,17 @@ public class NewDrink : MonoBehaviour
     public void ToggleWhip() => hasWhippedCream = !hasWhippedCream;
     public void Serve() => isServed = true;
 
-    public void SetIceCubes(int iceCubes)
+    // set number of ice cubes after minigame
+    public void SetIceCubes(int ice)
     {
-        this.iceCubes = iceCubes;
+        iceCubes = ice;
+
+        if (ice == 1)
+            drinkSprite = icedEmptyCup_1ice;
+        else if (ice == 2)
+            drinkSprite = icedEmptyCup_2ice;
+        else if (ice == 3)
+            drinkSprite = icedEmptyCup_3ice;
     }
     
     public int GetIceCubes() => iceCubes;

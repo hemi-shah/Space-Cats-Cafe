@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
 
 public class EspressoScreen : MonoBehaviour
 {
@@ -6,9 +8,12 @@ public class EspressoScreen : MonoBehaviour
     public NewDrink activeDrink;
     public GameObject startButton;
 
+    [Header("Filling Settings")] 
+    public float fillDelay = 1f;
+
     private void OnEnable()
     {
-        if (drinkManager != null)
+        if (drinkManager == null)
         {
             Debug.LogError("No drink manager");
         }
@@ -20,6 +25,21 @@ public class EspressoScreen : MonoBehaviour
             Debug.LogError("No active drink");
             return;
         }
+    }
+
+    public void PourEspresso()
+    {
+        if (activeDrink != null)
+        {
+            StartCoroutine(FillCupRoutine());
+        }
+    }
+
+    private IEnumerator FillCupRoutine()
+    {
+        yield return new WaitForSeconds(fillDelay);
+        
+        activeDrink.PourEspresso();
     }
     
     
