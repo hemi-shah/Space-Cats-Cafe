@@ -33,8 +33,6 @@ public class DrinkManager : MonoBehaviour
         {
             drinkComp.temperature = temperature;
             drinkComp.iceCubes = iceCubes;
-            drinkComp.isEmpty = true;
-            drinkComp.SetInitialSprite(temperature, iceCubes);
 
             if (spawnPosition.HasValue)
             {

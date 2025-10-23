@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum Drizzle
+public enum DrizzleType
 {
     None,
     Chocolate,
@@ -10,5 +10,5 @@ public enum Drizzle
 [CreateAssetMenu(menuName = "Coffee/Drizzle")]
 public class DrizzleDefinition : ScriptableObject
 {
-    public Drizzle DrizzleType;
+    public DrizzleType DrizzleType;
 }

@@ -8,16 +8,13 @@ public class ToppingsScreen : MonoBehaviour
     public GameObject startScreen;
     public GameObject toppingsScreen;
     
-    //public tempDrink drink;
-    public NewDrink activeDrink;
-    public DrinkManager drinkManager;
+    public tempDrink drink;
     
-    [Header("Toppings")]
     public GameObject whippedCream;
     public GameObject chocolateSyrup;
     public GameObject caramelSyrup;
 
-    [Header("Topping Location")]
+    // ChatGPT
     [SerializeField] private RectTransform cup;
     [SerializeField] private Vector2 offsetFromCup = new Vector2(-180f, 210f);
     [SerializeField] private float holdDelay = 0.6f;
@@ -36,9 +33,8 @@ public class ToppingsScreen : MonoBehaviour
 
     void Start()
     {
-        //startScreen.SetActive(false);
-        //toppingsScreen.SetActive(true);
-        activeDrink = drinkManager.GetActiveDrink();
+        startScreen.SetActive(false);
+        toppingsScreen.SetActive(true);
         
         if (whippedCream) startWhippedPos = whippedCream.GetComponent<RectTransform>().anchoredPosition;
         if (chocolateSyrup) startChocolatePos = chocolateSyrup.GetComponent<RectTransform>().anchoredPosition;
@@ -62,16 +58,14 @@ public class ToppingsScreen : MonoBehaviour
     
     public void Select(ToppingsType type, GameObject sourceGo)
     {
-        /*
         if (active != null) return;
-        if (activeDrink == null || cup == null || sourceGo == null) return;
+        if (drink == null || cup == null || sourceGo == null) return;
         
         if (toppingsCount >= maxToppings) return;
         if (type == ToppingsType.WhippedCream && hasWhippedCream) return;
         if (type == ToppingsType.ChocolateSyrup && hasChocolateSyrup) return;
         if (type == ToppingsType.CaramelSyrup && hasCaramelSyrup) return;
-        */
-        
+
         active = StartCoroutine(TeleportThenApply(sourceGo, type));
     }
     
@@ -117,15 +111,12 @@ public class ToppingsScreen : MonoBehaviour
         
         // Reset rotation back upright
         rt.localRotation = Quaternion.identity;
-        Debug.Log("Set topping back upright");
 
         // Apply topping to the drink (change this call if your API is different)
         // e.g. drink.AddTopping(type); or drink.ApplyTopping(type);
-        activeDrink.AddTopping(type);
-        Debug.Log("Adding topping to active drink in toppings screen");
+        drink.AddTopping(type);
         bool added = true;
 
-        /*
         if (added)
         {
             toppingsCount++;
@@ -133,7 +124,6 @@ public class ToppingsScreen : MonoBehaviour
             if (type == ToppingsType.ChocolateSyrup) hasChocolateSyrup = true;
             if (type == ToppingsType.CaramelSyrup)   hasCaramelSyrup = true;
         }
-        */
 
         // Snap back to original position
         rt.anchoredPosition = original;
