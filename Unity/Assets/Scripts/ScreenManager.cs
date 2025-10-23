@@ -40,18 +40,16 @@ public class ScreenManager : MonoBehaviour
         screenDictionary = new Dictionary<string, GameScreen>();
     
         // First, deactivate ALL screens
-        
         foreach (var screen in screens)
         {
             screenDictionary[screen.screenId] = screen;
             screen.screenObject.SetActive(false); // Make sure this line exists!
         }
-        
     
         // Then activate only the StartScreen
         ShowScreen("StartScreen"); // Changed back to StartScreen
 
-        //ShowScreen("CustomizationsScreen");  // Commented out testing line
+        //ShowScreen("OrderPageScreen");  // Commented out testing line
     }
 
     // For main navigation flow (Start → ChooseCat → OrderPage, etc.)
