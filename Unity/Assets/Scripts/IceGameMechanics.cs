@@ -9,6 +9,7 @@ public class IceGameMechanics : MonoBehaviour
     public CupAnimator cupAnimator;               
     public GameObject icePrefab;
     public Transform iceSpawnPoint; 
+    public DrinkManager drinkManager;
 
     [Header("Settings")]
     public int requiredIce = 3;
@@ -157,5 +158,8 @@ public class IceGameMechanics : MonoBehaviour
         }
 
         Debug.Log(iceCounter + " cubes caught. Ice mini-game complete!");
+
+        drinkManager.CreateDrink(TemperatureType.Cold, iceCounter);
+        Debug.Log("Created a drink with iceGamemechanics and Drinkmanager");
     }
 }

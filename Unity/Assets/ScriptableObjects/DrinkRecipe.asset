@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 360fcc5c1ee7346e180b987b616df077, type: 3}
+  m_Name: DrinkRecipe
+  m_EditorClassIdentifier: Assembly-CSharp::DrinkRecipe
+  baseName: 
+  temperature: 0
+  iceCubes: 0
+  milk: {fileID: 0}
+  syrup: {fileID: 0}
+  drizzle: {fileID: 0}
+  hasWhippedCream: 0
+  isEmpty: 0
+  overrideSprite: {fileID: 0}

@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8039144165877872125
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2402991065556769263}
+  - component: {fileID: 1563744680283170006}
+  m_Layer: 5
+  m_Name: Drink
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2402991065556769263
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8039144165877872125}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 250, y: 250}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1563744680283170006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8039144165877872125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80191137b1954aa1b2186387686f4d87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NewDrink
+  temperature: 0
+  iceCubes: 0
+  milk: 3
+  syrup: 0
+  hasWhippedCream: 0
+  isServed: 0
+  drinkSprite: {fileID: 21300000, guid: 173214bed8dec4a4fbda046736607555, type: 3}
+  hotEmptyCup: {fileID: 21300000, guid: 173214bed8dec4a4fbda046736607555, type: 3}
+  icedEmptyCup_0ice: {fileID: 21300000, guid: eaeb7ad01de4e4a179a11e8202b88c1e, type: 3}
+  icedEmptyCup_1ice: {fileID: 21300000, guid: 9d4efa6abff4c41109c57a8620ae0881, type: 3}
+  icedEmptyCup_2ice: {fileID: 21300000, guid: 27792701e1c0049d6a7ea8c9c50402a1, type: 3}
+  icedEmptyCup_3ice: {fileID: 21300000, guid: ea3d01cc60ad6482e9a75ae121a605d3, type: 3}
+  hotFilledCup: {fileID: 21300000, guid: 05a0c15e0cbc94866a04e0340ad1169c, type: 3}
+  icedFilledCup_1ice: {fileID: 21300000, guid: 6b42790a18ef748afbeee1616460b58a, type: 3}
+  icedFilledCup_2ice: {fileID: 21300000, guid: 6b42790a18ef748afbeee1616460b58a, type: 3}
+  icedFilledCup_3ice: {fileID: 21300000, guid: c1e428e429e1141a994251a44937165d, type: 3}
+  hotFilledCupWithMilk: {fileID: 21300000, guid: 24f82470e7d2c44c4bda9dd137aab2cd, type: 3}
+  icedFilledCupWithMilk_1ice: {fileID: 21300000, guid: d8698f9641ce24857b4504f7a5f80636, type: 3}
+  icedFilledCupWithMilk_2ice: {fileID: 21300000, guid: d8698f9641ce24857b4504f7a5f80636, type: 3}
+  icedFilledCupWithMilk_3ice: {fileID: 21300000, guid: d8698f9641ce24857b4504f7a5f80636, type: 3}
