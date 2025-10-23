@@ -33,6 +33,8 @@ public class ToppingsScreen : MonoBehaviour
     private Vector2 startCaramelPos;
 
     private Coroutine active;
+    
+    private ILogger logger = new DebugLogger();
 
     void Start()
     {
@@ -117,12 +119,12 @@ public class ToppingsScreen : MonoBehaviour
         
         // Reset rotation back upright
         rt.localRotation = Quaternion.identity;
-        Debug.Log("Set topping back upright");
+        logger.Log("Set topping back upright");
 
         // Apply topping to the drink (change this call if your API is different)
         // e.g. drink.AddTopping(type); or drink.ApplyTopping(type);
         activeDrink.AddTopping(type);
-        Debug.Log("Adding topping to active drink in toppings screen");
+        logger.Log("Adding topping to active drink in toppings screen");
         bool added = true;
 
         /*

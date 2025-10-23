@@ -15,6 +15,8 @@ public class DrinkRecipe : ScriptableObject {
     public bool hasWhippedCream;
     public bool isEmpty = false; // to represent empty cup asset state
     public Sprite overrideSprite; // optional override, otherwise compose or choose base sprite
+    
+    private ILogger logger = new DebugLogger();
 
     // helper: compute display name
     public string GetDisplayName() {

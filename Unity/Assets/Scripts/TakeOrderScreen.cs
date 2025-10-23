@@ -19,6 +19,8 @@ public class TakeOrderScreen : MonoBehaviour
     
     [SerializeField] private Image catPortrait;
     [SerializeField] private Text catNameText;
+    
+    private ILogger logger = new DebugLogger();
 
     // When TakeOrderScreen opens, starts sequence to show order ticket
     private void OnEnable()
@@ -42,14 +44,14 @@ public class TakeOrderScreen : MonoBehaviour
 
     private void HandleDetailChanged(int? orderNumber)
     {
-        Debug.Log($"[TakeOrderScreen] Detail changed -> {orderNumber}");
+        logger.Log($"[TakeOrderScreen] Detail changed -> {orderNumber}");
         
         if (!orderNumber.HasValue) { ClearCatUI(); return; }
 
         if (!CustomerManager.Instance ||
             !CustomerManager.Instance.TryGetSession(orderNumber.Value, out var session))
         {
-            Debug.LogWarning($"[TakeOrderScreen] No session for order {orderNumber.Value}");
+            logger.LogWarning($"[TakeOrderScreen] No session for order {orderNumber.Value}");
             ClearCatUI();
             return;
         }
@@ -88,7 +90,7 @@ public class TakeOrderScreen : MonoBehaviour
             if (catNameText) catNameText.text = "";
         }
         */
-        Debug.Log($"[TakeOrderScreen] order={orderNumber} " +
+        logger.Log($"[TakeOrderScreen] order={orderNumber} " +
                   $"cat={(session != null ? session.cat.catName : "null")} " +
                   $"ticket={(ticket ? ticket.name : "null")}");
     }
@@ -109,7 +111,7 @@ public class TakeOrderScreen : MonoBehaviour
     {
         if (!orderManager)
         {
-            Debug.LogWarning("[TakeOrderScreen] OrderManager is null!");
+            logger.LogWarning("[TakeOrderScreen] OrderManager is null!");
             yield break;
         }
 

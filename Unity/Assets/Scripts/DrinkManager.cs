@@ -11,11 +11,13 @@ public class DrinkManager : MonoBehaviour
 
     public Canvas canvas;
 
+    private ILogger logger = new DebugLogger();
+
     public NewDrink CreateDrink(TemperatureType temperature, int iceCubes = 0, Vector3? spawnPosition = null)
     {
         if (newDrinkPrefab == null)
         {
-            Debug.LogError("NewDrink prefab not assigned in DrinkManager!");
+            logger.LogError("NewDrink prefab not assigned in DrinkManager!");
             return null;
         }
 

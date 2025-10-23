@@ -10,6 +10,8 @@ public class IceMachineAnimator : MonoBehaviour
 
     private Vector2 startPos; // off screen position
     private Vector2 endPos;  
+    
+    private ILogger logger = new DebugLogger();
 
     private void Awake()
     {

@@ -13,6 +13,8 @@ public class ScreenManager : MonoBehaviour
     
     public DrinkManager drinkManager;
     private NewDrink activeDrink;
+    
+    private ILogger logger = new DebugLogger();
 
     [Header("Screen References")]
     [SerializeField] private List<GameScreen> screens = new List<GameScreen>();
@@ -68,13 +70,13 @@ public class ScreenManager : MonoBehaviour
     // For main navigation flow (Start → ChooseCat → OrderPage, etc.)
     public void NavigateTo(string screenId)
     {
-        Debug.Log($"NavigateTo called with: {screenId}");
-        Debug.Log($"Current screen: {currentScreenId}");
+        logger.Log($"NavigateTo called with: {screenId}");
+        logger.Log($"Current screen: {currentScreenId}");
     
         if (!screenDictionary.ContainsKey(screenId)) 
         {
-            Debug.LogError($"Screen '{screenId}' not found in dictionary!");
-            Debug.Log($"Available screens: {string.Join(", ", screenDictionary.Keys)}");
+            logger.LogError($"Screen '{screenId}' not found in dictionary!");
+            logger.Log($"Available screens: {string.Join(", ", screenDictionary.Keys)}");
             return;
         }
         if (!screenDictionary.ContainsKey(screenId)) return;
@@ -138,7 +140,7 @@ public class ScreenManager : MonoBehaviour
             BringActiveDrinkToFront(screenId);
         }
         
-        Debug.Log($"Showing: {screenId}");
+        logger.Log($"Showing: {screenId}");
     }
 
     private void MoveToBackground(GameScreen screen)
@@ -212,7 +214,7 @@ public class ScreenManager : MonoBehaviour
             menuBar.transform.SetAsLastSibling();
         }
         
-        Debug.Log($"Menu bar on {screenId}: {showMenuBar}");
+        logger.Log($"Menu bar on {screenId}: {showMenuBar}");
     }
 
     // ADD THIS METHOD: Manually show the menu bar
@@ -222,7 +224,7 @@ public class ScreenManager : MonoBehaviour
         {
             menuBar.SetActive(true);
             menuBar.transform.SetAsLastSibling();
-            Debug.Log("Menu bar shown manually via ShowMenuBar()");
+            logger.Log("Menu bar shown manually via ShowMenuBar()");
         }
     }
 

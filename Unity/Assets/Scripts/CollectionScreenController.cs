@@ -10,10 +10,13 @@ public class CollectionScreenController : MonoBehaviour
     [SerializeField] private CanvasGroup canvasGroup;
 
     private bool isRefreshing = false;
+    private ILogger logger;
 
     private void OnEnable()
     {
-        Debug.Log("🖼️ Collection Screen Enabled");
+        logger = new DebugLogger();
+        
+        logger.Log("🖼️ Collection Screen Enabled");
         CatCollectionManager.OnCollectionChanged += OnCollectionChanged;
         
         if (canvasGroup != null)
@@ -41,18 +44,18 @@ public class CollectionScreenController : MonoBehaviour
         if (isRefreshing) return;
         
         isRefreshing = true;
-        Debug.Log("🔄 Refreshing Collection Display");
+        logger.Log("🔄 Refreshing Collection Display");
         
         if (catGridParent == null)
         {
-            Debug.LogError("❌ Cat Grid Parent is null!");
+            logger.LogError("❌ Cat Grid Parent is null!");
             isRefreshing = false;
             return;
         }
 
         if (catEntryPrefab == null)
         {
-            Debug.LogError("❌ Cat Entry Prefab is null!");
+            logger.LogError("❌ Cat Entry Prefab is null!");
             isRefreshing = false;
             return;
         }
@@ -67,13 +70,13 @@ public class CollectionScreenController : MonoBehaviour
         CatCollectionManager collectionManager = FindObjectOfType<CatCollectionManager>();
         if (collectionManager == null)
         {
-            Debug.LogError("❌ CatCollectionManager not found!");
+            logger.LogError("❌ CatCollectionManager not found!");
             isRefreshing = false;
             return;
         }
 
         List<CatDefinition> collectedCats = collectionManager.GetCollectedCats();
-        Debug.Log($"📊 Displaying {collectedCats.Count} collected cats");
+        logger.Log($"📊 Displaying {collectedCats.Count} collected cats");
 
         // Create UI entries for each collected cat - limit debug output
         foreach (CatDefinition cat in collectedCats)
@@ -89,7 +92,7 @@ public class CollectionScreenController : MonoBehaviour
         Canvas.ForceUpdateCanvases();
         
         isRefreshing = false;
-        Debug.Log("✅ Collection display refresh complete");
+        logger.Log("✅ Collection display refresh complete");
     }
 
     private void CreateCatEntry(CatDefinition cat)
@@ -97,7 +100,7 @@ public class CollectionScreenController : MonoBehaviour
     GameObject entry = Instantiate(catEntryPrefab, catGridParent);
     entry.name = $"Entry_{cat.catName}";
     
-    Debug.Log($"🐱 Creating entry for: {cat.catName}, Sprite: {cat.catSprite?.name}");
+    logger.Log($"🐱 Creating entry for: {cat.catName}, Sprite: {cat.catSprite?.name}");
 
     // APPROACH 1: Try to find and set Image component
     bool spriteSet = TrySetSpriteOnImage(entry, cat);
@@ -116,11 +119,11 @@ public class CollectionScreenController : MonoBehaviour
 
     if (spriteSet)
     {
-        Debug.Log($"✅ Successfully set sprite for {cat.catName}");
+        logger.Log($"✅ Successfully set sprite for {cat.catName}");
     }
     else
     {
-        Debug.LogError($"❌ FAILED to set sprite for {cat.catName}");
+        logger.LogError($"❌ FAILED to set sprite for {cat.catName}");
         
         // Emergency: Make the entry bright red so we can see it
         Image emergencyImage = entry.GetComponent<Image>();
@@ -154,12 +157,12 @@ private bool TrySetSpriteOnImage(GameObject entry, CatDefinition cat)
             // Force the GameObject to be active
             img.gameObject.SetActive(true);
             
-            Debug.Log($"✅ Set sprite on Image: {img.gameObject.name}");
+            logger.Log($"✅ Set sprite on Image: {img.gameObject.name}");
             return true;
         }
     }
     
-    Debug.Log("❌ No Image components found or sprite is null");
+    logger.Log("❌ No Image components found or sprite is null");
     return false;
 }
 
@@ -175,7 +178,7 @@ private bool TrySetSpriteOnRawImage(GameObject entry, CatDefinition cat)
             rawImg.color = Color.white;
             rawImg.enabled = true;
             
-            Debug.Log($"✅ Set texture on RawImage: {rawImg.gameObject.name}");
+            logger.Log($"✅ Set texture on RawImage: {rawImg.gameObject.name}");
             return true;
         }
     }
@@ -200,7 +203,7 @@ private bool TryAddNewImageComponent(GameObject entry, CatDefinition cat)
         rect.sizeDelta = new Vector2(100, 100);
     }
     
-    Debug.Log("✅ Added new Image component with sprite");
+    logger.Log("✅ Added new Image component with sprite");
     return true;
 }
 
@@ -216,7 +219,7 @@ private bool TryAddNewImageComponent(GameObject entry, CatDefinition cat)
     // This is called when the collection changes in any way
     private void OnCollectionChanged()
     {
-        Debug.Log("🔄 Collection changed event received");
+        logger.Log("🔄 Collection changed event received");
         
         // If the collection screen is currently open, refresh it
         if (gameObject.activeInHierarchy)

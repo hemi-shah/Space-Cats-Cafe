@@ -33,6 +33,8 @@ public class SyrupSelection : MonoBehaviour
     private Vector2 mochaOriginalPos;
     
     private RectTransform _canvasRect;
+    
+    private ILogger logger = new DebugLogger();
 
     private void Start()
     {
@@ -77,7 +79,7 @@ public class SyrupSelection : MonoBehaviour
         if (selected) return;
         selected = true;
         
-        Debug.Log("Caramel syrup selected!");
+        logger.Log("Caramel syrup selected!");
         
         StartCoroutine(HandleSelectedPump(caramelSyrup, caramelSyrupAnimator, SyrupType.Caramel, 3));
     }
@@ -87,7 +89,7 @@ public class SyrupSelection : MonoBehaviour
         if (selected) return;
         selected = true;
         
-        Debug.Log("Chocolate syrup selected!");
+        logger.Log("Chocolate syrup selected!");
         
         StartCoroutine(HandleSelectedPump(chocolateSyrup, chocolateSyrupAnimator, SyrupType.Chocolate, 2));
     }
@@ -97,7 +99,7 @@ public class SyrupSelection : MonoBehaviour
         if (selected) return;
         selected = true;
         
-        Debug.Log("Mocha syrup selected!");
+        logger.Log("Mocha syrup selected!");
         
         StartCoroutine(HandleSelectedPump(mochaSyrup, mochaSyrupAnimator, SyrupType.Mocha, 1));
     }

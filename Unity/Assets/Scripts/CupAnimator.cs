@@ -26,8 +26,12 @@ public class CupAnimator : MonoBehaviour, IDragHandler
     private bool _isDragging = false;
     private bool _canDrag = true;   // ← NEW
 
+    private ILogger logger;
+    
     private void Awake()
     {
+        logger = new DebugLogger();
+        
         if (cupRect == null)
             cupRect = GetComponent<RectTransform>();
 

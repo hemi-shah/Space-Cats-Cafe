@@ -22,6 +22,8 @@ public class MilkScreen : MonoBehaviour
     public MilkType SelectedMilk { get; private set; } = MilkType.None;
 
     private Coroutine active;
+
+    private ILogger logger = new DebugLogger();
     
     private void OnEnable()
     {

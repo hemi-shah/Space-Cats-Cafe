@@ -27,6 +27,8 @@ public class tempDrink : MonoBehaviour
     private bool hasCaramelSyrup;
     private int toppingsCount;
     private int maxToppings = 3;
+    
+    private ILogger logger = new DebugLogger();
 
     void Awake()
     {
@@ -163,7 +165,7 @@ public class tempDrink : MonoBehaviour
         }
 
         toppingsCount++;
-        Debug.Log($"Added topping: {toppingsType}");
+        //logger.Log($"Added topping: {toppingsType}");
     }
     
     

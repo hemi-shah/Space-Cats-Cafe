@@ -14,6 +14,8 @@ public class CustomerCat : MonoBehaviour
     private CustomerManager customerManager;
     private ScreenManager screenManager;
 
+    private ILogger logger = new DebugLogger();
+
     public void Init(SeatingManager seatingManager, int seatIdx, CatDefinition catDef,
         CustomerManager cm, ScreenManager sm)
     {
@@ -55,7 +57,7 @@ public class CustomerCat : MonoBehaviour
     {
         if (catToAdd == null)
         {
-            Debug.LogError("Cannot add null cat to collection!");
+            logger.LogError("Cannot add null cat to collection!");
             return;
         }
 
@@ -65,7 +67,7 @@ public class CustomerCat : MonoBehaviour
         // If not found, create one
         if (collectionManager == null)
         {
-            Debug.Log("Creating new CatCollectionManager...");
+            logger.Log("Creating new CatCollectionManager...");
             GameObject collectionObj = new GameObject("CatCollectionManager");
             collectionManager = collectionObj.AddComponent<CatCollectionManager>();
             DontDestroyOnLoad(collectionObj);
@@ -73,7 +75,7 @@ public class CustomerCat : MonoBehaviour
 
         // Add the cat to collection
         collectionManager.AddCatToCollection(catToAdd);
-        Debug.Log($"✅ Added {catToAdd.catName} to cat collection! Total collected: {collectionManager.GetCollectionCount()}");
+        logger.Log($"✅ Added {catToAdd.catName} to cat collection! Total collected: {collectionManager.GetCollectionCount()}");
     }
 
     // Add this method to check if this customer is using the player's cat
