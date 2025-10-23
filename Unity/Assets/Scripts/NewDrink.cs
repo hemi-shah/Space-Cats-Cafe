@@ -1,17 +1,23 @@
 
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NewDrink : MonoBehaviour
 {
 
     [Header("Drink Data")] 
     public TemperatureType temperature = TemperatureType.Hot;
+    public bool isEmpty = true;
     [Range(0, 3)] public int iceCubes = 0;
     public MilkType milk = MilkType.None;
     public SyrupType syrup = SyrupType.None;
+    //public DrizzleType drizzle = DrizzleType.None;
     public bool hasWhippedCream = false;
+    public bool hasChocolateDrizzle = false;
+    public bool hasCaramelDrizzle = false;
     public bool isServed = false;
     public Sprite drinkSprite;
+    public Image drinkImage;
 
     [Header("Empty Cup Visuals")] 
     public Sprite hotEmptyCup;
@@ -34,25 +40,154 @@ public class NewDrink : MonoBehaviour
     public Sprite icedFilledCupWithMilk_2ice;
     public Sprite icedFilledCupWithMilk_3ice;
 
-    /*
-    [Header("Cup With No Milk and Whipped Cream Visuals")]
-    public Sprite hotCupWithWhippedCream;
-    public Sprite icedCupWithWhippedCream_0ice;
-    public Sprite icedCupWithWhippedCream_1ice;
-    public Sprite icedCupWithWhippedCream_2ice;
-    public Sprite icedCupWithWhippedCream_3ice;
+    [Header("Toppings")] 
+    public GameObject whippedCream;
+    public GameObject chocolateDrizzle;
+    public GameObject caramelDrizzle;
+
+    [Header("Topping Positions")] 
+    public Vector2 whippedPosHot;
+    public Vector2 whippedPosCold;
+    public Vector2 chocolatePosHot;
+    public Vector2 chocolatePosCold;
+    public Vector2 caramelPosHot;
+    public Vector2 caramelPosCold;
+
+
+    public void UpdateVisual()
+    {
+        if (drinkSprite == null)
+        {
+            Debug.LogError("Drink Sprite is null");
+        }
+
+        if (drinkImage != null)
+        {
+            drinkImage.sprite = drinkSprite;
+        }
+    }
+
+    public void SetVisualOn(bool isOn)
+    {
+        if (drinkImage == null)
+        {
+            Debug.LogError("Drink Image is null");
+            return;
+        }
+        
+        if (isOn)
+            drinkImage.enabled = true;
+        else
+            drinkImage.enabled = false;
+    }
     
-    [Header("Cup With Milk and Whipped Cream Visuals")]
-    public Sprite hotCupWithMilkWhippedCream;
-    public Sprite icedCupWithMilkWhippedCream_0ice;
-    public Sprite icedCupWithMilkWhippedCream_1ice;
-    public Sprite icedCupWithMilkWhippedCream_2ice;
-    public Sprite icedCupWithMilkWhippedCream_3ice;
+    private void SetChildToLocalPosition(GameObject child, Vector2 localPos)
+    {
+        if (child == null) return;
+
+        RectTransform rt = child.GetComponent<RectTransform>();
+        if (rt != null)
+        {
+            // Make anchors/pivot predictable so anchoredPosition behaves consistently
+            rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
+            rt.pivot = new Vector2(0.5f, 0.5f);
+
+            rt.anchoredPosition = localPos;
+        }
+        else
+        {
+            // fallback for non-UI objects: set localPosition (preserve z)
+            var lp = child.transform.localPosition;
+            child.transform.localPosition = new Vector3(localPos.x, localPos.y, lp.z);
+        }
+    }
+
+    public void UpdateToppingPositions(TemperatureType temp)
+    {
+        // set topping gameObject locations
+        if (whippedCream != null)
+        {
+            Vector2 pos = (temp == TemperatureType.Hot) ? whippedPosHot : whippedPosCold;
+            SetChildToLocalPosition(whippedCream, pos);
+        }
+        
+        // chocolate drizzle
+        if (chocolateDrizzle != null)
+        {
+            Vector2 pos = (temp == TemperatureType.Hot) ? chocolatePosHot : chocolatePosCold;
+            SetChildToLocalPosition(chocolateDrizzle, pos);
+        }
+
+        // caramel drizzle
+        if (caramelDrizzle != null)
+        {
+            Vector2 pos = (temp == TemperatureType.Hot) ? caramelPosHot : caramelPosCold;
+            SetChildToLocalPosition(caramelDrizzle, pos);
+        }
+    }
     
-    [Header("Cup With Milk and Whipped Cream Visuals")]
-    */
+    public void SetInitialSprite(TemperatureType temp, int ice)
+    {
+        if (temp.Equals(TemperatureType.Hot))
+        {
+            drinkSprite = hotEmptyCup;
+        }
+
+        if (temp.Equals(TemperatureType.Cold))
+        {
+            if (ice == 0)
+                drinkSprite = icedEmptyCup_0ice;
+            else if (ice == 1)
+                drinkSprite = icedEmptyCup_1ice;
+            else if (ice == 2)
+                drinkSprite = icedEmptyCup_2ice;
+            else if (ice == 3)
+                drinkSprite = icedEmptyCup_3ice;
+        }
+        
+        // start no toppings
+        whippedCream.SetActive(false);
+        chocolateDrizzle.SetActive(false);
+        caramelDrizzle.SetActive(false);
+        
+        SetVisualOn(false);  // hide at first
+    }
     
-    //public SpriteRenderer drinkSprite; // optional, for showing the drink
+    
+    public void PourEspresso()
+    {
+        Debug.Log("Calling PourEspresso from NewDrink");
+        isEmpty = false;
+
+        if (temperature == TemperatureType.Hot)
+        {
+            drinkSprite = hotFilledCup;
+            Debug.Log("Changed sprite to hot full");
+        }
+
+        if (temperature == TemperatureType.Cold)
+        {
+            Debug.Log("cold drink to pour espresso");
+            Debug.Log("ice cubes: " + iceCubes);
+            if (iceCubes == 1)
+            {
+                drinkSprite = icedFilledCup_1ice;
+            }
+            else if (iceCubes == 2) 
+            {
+                drinkSprite = icedFilledCup_2ice;
+            }
+            else if (iceCubes == 3)
+            {
+                drinkSprite = icedFilledCup_3ice;
+                Debug.Log("drink sprite icedFilled 3 ice");
+            }
+        }
+        
+        UpdateVisual();
+    }
+    
+    
 
     // Example: Update the sprite if needed
     public void SetSprite(Sprite sprite)
@@ -67,136 +202,78 @@ public class NewDrink : MonoBehaviour
     public void ToggleWhip() => hasWhippedCream = !hasWhippedCream;
     public void Serve() => isServed = true;
 
-    public void SetIceCubes(int iceCubes)
+    // set number of ice cubes after minigame
+    public void SetIceCubes(int ice)
     {
-        this.iceCubes = iceCubes;
+        //iceCubes = ice;
+        if (ice > 3)
+            iceCubes = 3;
+        else
+        {
+            iceCubes = ice;
+        }
+
+        if (ice == 1)
+            drinkSprite = icedEmptyCup_1ice;
+        else if (ice == 2)
+            drinkSprite = icedEmptyCup_2ice;
+        else if (ice == 3)
+            drinkSprite = icedEmptyCup_3ice;
+        
+        UpdateVisual();
     }
     
     public int GetIceCubes() => iceCubes;
 
-    // hot or cold
-    // if cold: number of ice cubes (1 to 3)
-    // milk type or none
-    // syrup type
-    // whipped cream topping bool
-    // if whipped, choc or caramel or none
-    // isEmpty
-    // sprite
-    // name based on contents (iced / hot, etc)
-
-    /*
-    [Header("Properties")]
-    public DrinkRecipe recipe;
-    public bool isServed;
-    public int currentIce; // runtime may change this if player adds/steals ice
-    public bool hasWhip;   // if whip can be added/removed during play
-    public TemperatureType temperature;
-
-    [Header("Visuals")]
-    public Sprite runtimeSprite;
-    */
-
-    /*
-
-    public string Name
+    public void PourMilk(MilkType selectedMilk)
     {
-        get
+        if (selectedMilk != MilkType.None)
         {
-            if (recipe != null)
-                return recipe.GetDisplayName();
-            else
-                return "Custom Drink";
-        }
-    }
-
-    public Sprite Sprite
-    {
-        get
-        {
-            if (recipe != null && recipe.overrideSprite != null)
-                return recipe.overrideSprite;
-            else
-                return recipe.overrideSprite;
-        }
-    }
-
-    // constructor to start with a temperature and number of ice
-    public NewDrink(TemperatureType temperature, int startingIce)
-    {
-        this.recipe = null;
-        this.temperature = temperature;
-        this.isServed = false;
-        this.hasWhip = false;
-        this.runtimeSprite = null;
-
-        if (temperature == TemperatureType.Cold)
-        {
-            this.currentIce = Mathf.Clamp(startingIce, 0, 3);
-        }
-        else
-        {
-            this.currentIce = 0;
-        }
-    }
-
-    public NewDrink(DrinkRecipe recipe)
-    {
-        this.recipe = recipe;
-        this.isServed = false;
-
-        if (recipe != null)
-        {
-            if (recipe.temperature == TemperatureType.Cold)
+            if (temperature == TemperatureType.Hot)
+                drinkSprite = hotFilledCupWithMilk;
+            else if (temperature == TemperatureType.Cold)
             {
-                this.currentIce = Mathf.Clamp(recipe.iceCubes, 0, 3);
+                if  (iceCubes == 1)
+                    drinkSprite = icedFilledCupWithMilk_1ice;
+                else if (iceCubes == 2)
+                    drinkSprite = icedFilledCupWithMilk_2ice;
+                else if (iceCubes == 3)
+                    drinkSprite = icedFilledCupWithMilk_3ice;
             }
-            else
-            {
-                this.currentIce = 0;
-            }
-
-            this.hasWhip = recipe.hasWhippedCream;
-            this.runtimeSprite = recipe.overrideSprite;
+            
+            UpdateVisual();
         }
-        else
+        
+        milk = selectedMilk;
+        Debug.Log("Milk type in drink: " + milk);
+    }
+
+    public void AddTopping(ToppingsType topping)
+    {
+        switch (topping)
         {
-            this.currentIce = 0;
-            this.hasWhip = false;
-            this.runtimeSprite = null;
+            case ToppingsType.WhippedCream:
+                hasWhippedCream = true;
+                if (whippedCream) whippedCream.SetActive(true);
+                break;
+            case ToppingsType.ChocolateSyrup:
+                if (whippedCream)
+                {
+                    //drizzle = DrizzleType.Chocolate;
+                    hasChocolateDrizzle = true;
+                    chocolateDrizzle.SetActive(true);
+                }
+                break;
+            case ToppingsType.CaramelSyrup:
+                if (whippedCream)
+                {
+                    //drizzle = DrizzleType.Caramel;
+                    hasCaramelDrizzle = true;
+                    caramelDrizzle.SetActive(true);
+                }
+                break;
         }
     }
 
-    // Runtime mutator methods
-    public void AddIce()
-    {
-        if (recipe != null || recipe.temperature == TemperatureType.Cold)
-        {
-            currentIce = Mathf.Clamp(currentIce + 1, 0, 3);
-        }
-    }
-
-    public void RemoveIce()
-    {
-        currentIce = Mathf.Max(0, currentIce - 1);
-    }
-
-    public void ToggleWhip()
-    {
-        hasWhip = !hasWhip;
-    }
-
-    public void Serve()
-    {
-        isServed = true;
-    }
-
-    public bool IsIced()
-    {
-        if (recipe == null)
-        {
-            return currentIce > 0;
-        }
-        return recipe.temperature == TemperatureType.Cold;
-    }
-    */
+    
 }
