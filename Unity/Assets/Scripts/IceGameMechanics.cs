@@ -10,12 +10,14 @@ public class IceGameMechanics : MonoBehaviour
     public GameObject icePrefab;
     public Transform iceSpawnPoint; 
     public DrinkManager drinkManager;
+    public ScreenManager screenManager;
     public GameObject EspressoButton;
 
     [Header("Settings")]
     public int requiredIce = 3;
     public float iceFallInterval = 1.5f;
-    public float delayBeforeSpawning = 1.0f; 
+    public float delayBeforeSpawning = 1.0f;
+    public float delayBeforeScreenChange = 2.5f;
 
     [Header("Cup Settings")]
     public Vector2 cupStartPos = new Vector2(-200, -300); 
@@ -168,7 +170,13 @@ public class IceGameMechanics : MonoBehaviour
             activeDrink.SetIceCubes(iceCounter);
         }
         Debug.Log("Drink stats: " + drinkManager.GetActiveDrink().GetIceCubes());
-        
-        //EspressoButton.SetActive(true);
+
+        StartCoroutine(SwitchToSyrupScreen());
+    }
+    
+    private IEnumerator SwitchToSyrupScreen()
+    {
+        yield return new WaitForSeconds(delayBeforeScreenChange);
+        screenManager.NavigateTo("SyrupSelectionScreen");
     }
 }

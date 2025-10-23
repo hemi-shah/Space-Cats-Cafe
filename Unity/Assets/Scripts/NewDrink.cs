@@ -201,5 +201,11 @@ public class NewDrink : MonoBehaviour
         Debug.Log("Milk type in drink: " + milk);
     }
 
+    // apply syrup type
+    public void AddSyrup(SyrupType selectedSyrup)
+    {
+        syrup = selectedSyrup;
+    }
+
     
 }

@@ -21,11 +21,12 @@ public class SyrupSelection : MonoBehaviour
 
     [Header("Drink References")] 
     public DrinkManager drinkManager;
+    public NewDrink activeDrink;
+    public SyrupType selectedSyrup { get; private set; } = SyrupType.None;
     public GameObject hotDrinkImage;
     public GameObject coldDrinkImage;
 
     //private Drink currentDrink;
-    private NewDrink activeDrink;
     private bool selected = false;
     
     private Vector2 caramelOriginalPos;
@@ -36,6 +37,8 @@ public class SyrupSelection : MonoBehaviour
 
     private void Start()
     {
+        hotDrinkImage.SetActive(false);
+        coldDrinkImage.SetActive(false);
         //currentDrink = new Drink(isHot: false);
         activeDrink = drinkManager.GetActiveDrink();
 
@@ -76,6 +79,7 @@ public class SyrupSelection : MonoBehaviour
     {
         if (selected) return;
         selected = true;
+        Select(SyrupType.Caramel);
         
         Debug.Log("Caramel syrup selected!");
         
@@ -86,6 +90,7 @@ public class SyrupSelection : MonoBehaviour
     {
         if (selected) return;
         selected = true;
+        Select(SyrupType.Chocolate);
         
         Debug.Log("Chocolate syrup selected!");
         
@@ -96,12 +101,20 @@ public class SyrupSelection : MonoBehaviour
     {
         if (selected) return;
         selected = true;
+        Select(SyrupType.Mocha);
         
         Debug.Log("Mocha syrup selected!");
         
         StartCoroutine(HandleSelectedPump(mochaSyrup, mochaSyrupAnimator, SyrupType.Mocha, 1));
     }
 
+    // select type to add to active drink
+    private void Select(SyrupType type)
+    {
+        selectedSyrup = type;
+        activeDrink.AddSyrup(type);
+    }
+    
     private IEnumerator HandleSelectedPump(GameObject selectedSyrup, SyrupAnimator animator, SyrupType syrupType, int pumps)
     {
         var rt = selectedSyrup.GetComponent<RectTransform>();

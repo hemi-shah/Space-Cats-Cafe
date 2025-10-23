@@ -176,6 +176,8 @@ MonoBehaviour:
   hotCupAnimator: {fileID: 0}
   coldCupAnimator: {fileID: 0}
   drinkManager: {fileID: 141053789}
+  screenManager: {fileID: 996801707}
+  delayBeforeScreenChange: 1
 --- !u!114 &5844072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -399,6 +401,8 @@ MonoBehaviour:
   hotCupAnimator: {fileID: 115291770}
   coldCupAnimator: {fileID: 1575205613}
   drinkManager: {fileID: 141053789}
+  screenManager: {fileID: 0}
+  delayBeforeScreenChange: 1
 --- !u!114 &115291767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -653,10 +657,12 @@ MonoBehaviour:
   icePrefab: {fileID: 6526495884326560829, guid: f35840264c7cd4c4ab2df48223f683e9, type: 3}
   iceSpawnPoint: {fileID: 326278367}
   drinkManager: {fileID: 141053789}
+  screenManager: {fileID: 996801707}
   EspressoButton: {fileID: 1032313995}
   requiredIce: 3
   iceFallInterval: 1.5
   delayBeforeSpawning: 1
+  delayBeforeScreenChange: 1.5
   cupStartPos: {x: -80, y: -110}
   minXSpawn: -300
   maxXSpawn: 300
@@ -5740,7 +5746,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 996801709}
-  - component: {fileID: 996801708}
   - component: {fileID: 996801707}
   m_Layer: 0
   m_Name: GameManager
@@ -5821,18 +5826,6 @@ MonoBehaviour:
   ordersStation: OrderPageScreen
   customizationsStation: CustomizationsScreen
   assembleStation: AssembleScreen
---- !u!114 &996801708
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 996801706}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dac0e9ac294e49d5bea316c94991fc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameManager
 --- !u!4 &996801709
 Transform:
   m_ObjectHideFlags: 0
@@ -9627,6 +9620,8 @@ MonoBehaviour:
   hotCupAnimator: {fileID: 115291770}
   coldCupAnimator: {fileID: 1575205613}
   drinkManager: {fileID: 141053789}
+  screenManager: {fileID: 0}
+  delayBeforeScreenChange: 1
 --- !u!114 &1575205610
 MonoBehaviour:
   m_ObjectHideFlags: 0

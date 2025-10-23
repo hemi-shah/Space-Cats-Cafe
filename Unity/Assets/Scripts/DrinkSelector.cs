@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,25 @@ public class DrinkSelector : MonoBehaviour
     private bool selected = false;
     
     public DrinkManager drinkManager;
+    public ScreenManager screenManager;
+
+    public float delayBeforeScreenChange = 1.5f;
+
+    private void Start()
+    {
+        if (drinkManager == null)
+        {
+            Debug.LogWarning("Drink selector has no drink manager");
+        }
+
+        
+        if (screenManager == null)
+        {
+            screenManager = FindObjectOfType<ScreenManager>();
+            if (screenManager == null)
+                Debug.LogWarning("Drink selector has no screen manager");
+        }
+    }
 
     public void SelectColdDrink()
     {
@@ -45,11 +65,19 @@ public class DrinkSelector : MonoBehaviour
 
         hotCupAnimator.SlideToCenter();
         coldCupAnimator.SlideOutRight();
+
+        StartCoroutine(SwitchToSyrupScreen());
     }
 
     private void _disableButtons()
     {
         hotDrinkButton.interactable = false;
         coldDrinkButton.interactable = false;
+    }
+
+    private IEnumerator SwitchToSyrupScreen()
+    {
+        yield return new WaitForSeconds(delayBeforeScreenChange);
+        screenManager.NavigateTo("SyrupSelectionScreen");
     }
 }
