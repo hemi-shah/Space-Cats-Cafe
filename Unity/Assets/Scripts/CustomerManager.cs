@@ -21,10 +21,11 @@ public class CustomerManager : MonoBehaviour
         Instance = this;
     }
 
-    //private readonly Dictionary<int, CustomerSession> sessions = new Dictionary<int, CustomerSession>();
-
     public int TakeOrderForCat(CatDefinition cat)
     {
+        // Add cat to collection immediately when order is taken
+        AddCatToCollection(cat);
+
         // generate random order
         var data = orderManager.GenerateRandomOrderData();
         int orderNum = orderManager.CreateOrder(data);
@@ -35,8 +36,6 @@ public class CustomerManager : MonoBehaviour
             orderNumber = orderNum,
             orderData = data
         };
-
-        //Debug.Log($"[CustomerManager] Session stored for order {orderNum} (cat={cat.catName})");
 
         return orderNum;
     }
@@ -52,73 +51,28 @@ public class CustomerManager : MonoBehaviour
         if (seatingManager) seatingManager.OnOrderCompleted(orderNumber);
     }
 
-
-    /*
-    public static CustomerManager Instance { get; private set; }
-
-    [Header("Customers in this scene")]
-    [SerializeField] private CustomerState[] customers;
-
-    public int ActiveIndex { get; private set; } = -1;
-
-    private void Awake()
+    // NEW: Add cat to collection
+    private void AddCatToCollection(CatDefinition cat)
     {
-        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
-        Instance = this;
+        if (cat == null) return;
+
+        // Try to find the CatCollectionManager
+        CatCollectionManager collectionManager = FindFirstObjectByType<CatCollectionManager>();
+        
+        // If it doesn't exist, create one
+        if (collectionManager == null)
+        {
+            GameObject collectionObj = new GameObject("CatCollectionManager");
+            collectionManager = collectionObj.AddComponent<CatCollectionManager>();
+            DontDestroyOnLoad(collectionObj);
+        }
+
+        // Add the cat to collection
+        collectionManager.AddCatToCollection(cat);
+        Debug.Log($"📸 Added {cat.catName} to cat collection!");
     }
-
-    public int Count => customer?.Length ?? 0;
-
-    public void SetActiveCustomer(int index)
+    public int GetSessionCount()
     {
-        if (index < 0 || index >= Count) { Debug.LogWarning("Bad customer index"); return; }
-        ActiveIndex = index;
+        return sessions.Count;
     }
-
-    public CustomerState GetActiveCustomer()
-    {
-        if (ActiveIndex < 0 || ActiveIndex >= Count) return null;
-        return customers[ActiveIndex];
-    }
-
-    public CustomerState GetCustomer(int index)
-    {
-        if (index < 0 || index >= Count) return null;
-        return customers[index];
-    }
-
-    public void AssignOrderToActive(int orderId)
-    {
-        var c = GetActiveCustomer();
-        if (c == null) return;
-        c.orderId = orderId;
-        c.hasOrder = true;
-    }
-
-    public bool MarkServedActive()
-    {
-        var c = GetActiveCustomer();
-        if (c == null || !c.hasOrder) return false;
-        c.served = true;
-        return true;
-    }
-
-    public bool IsActiveServed()
-    {
-        var c = GetActiveCustomer();
-        return c != null && c.served;
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-    */
 }
