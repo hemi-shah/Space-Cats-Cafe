@@ -5781,7 +5781,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a49ed0bf9eb054d0b83a2afa42663b76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MilkScreen
-  drink: {fileID: 1538328599}
+  drinkManager: {fileID: 141053789}
+  activeDrink: {fileID: 0}
   dairyMilk: {fileID: 503509549}
   almondMilk: {fileID: 1900202600}
   oatMilk: {fileID: 1909730435}
@@ -8691,8 +8692,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1538328598}
   - component: {fileID: 1538328601}
-  - component: {fileID: 1538328600}
-  - component: {fileID: 1538328599}
   m_Layer: 5
   m_Name: Drink
   m_TagString: Untagged
@@ -8719,57 +8718,6 @@ RectTransform:
   m_AnchoredPosition: {x: -70, y: -200}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1538328599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1538328597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e477bd898d3e42ae9e9af16812593b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::tempDrink
-  hotEmptySprite: {fileID: 21300000, guid: 173214bed8dec4a4fbda046736607555, type: 3}
-  icedEmptySprite: {fileID: 21300000, guid: 21a078c19736b4904b7652e4564b3af3, type: 3}
-  hotFullSprite: {fileID: 21300000, guid: 05a0c15e0cbc94866a04e0340ad1169c, type: 3}
-  icedFullSprite: {fileID: 21300000, guid: c1e428e429e1141a994251a44937165d, type: 3}
-  hotMilkCoffeeSprite: {fileID: 21300000, guid: 24f82470e7d2c44c4bda9dd137aab2cd, type: 3}
-  icedMilkCoffeeSprite: {fileID: 21300000, guid: d8698f9641ce24857b4504f7a5f80636, type: 3}
-  whippedCreamVisual: {fileID: 0}
-  chocolateVisual: {fileID: 0}
-  caramelVisual: {fileID: 0}
---- !u!114 &1538328600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1538328597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 05a0c15e0cbc94866a04e0340ad1169c, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &1538328601
 CanvasRenderer:
   m_ObjectHideFlags: 0

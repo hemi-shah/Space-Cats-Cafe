@@ -178,5 +178,28 @@ public class NewDrink : MonoBehaviour
     
     public int GetIceCubes() => iceCubes;
 
+    public void PourMilk(MilkType selectedMilk)
+    {
+        if (selectedMilk != MilkType.None)
+        {
+            if (temperature == TemperatureType.Hot)
+                drinkSprite = hotFilledCupWithMilk;
+            else if (temperature == TemperatureType.Cold)
+            {
+                if  (iceCubes == 1)
+                    drinkSprite = icedFilledCupWithMilk_1ice;
+                else if (iceCubes == 2)
+                    drinkSprite = icedFilledCupWithMilk_2ice;
+                else if (iceCubes == 3)
+                    drinkSprite = icedFilledCupWithMilk_3ice;
+            }
+            
+            UpdateVisual();
+        }
+        
+        milk = selectedMilk;
+        Debug.Log("Milk type in drink: " + milk);
+    }
+
     
 }
