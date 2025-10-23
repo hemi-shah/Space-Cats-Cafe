@@ -7,12 +7,14 @@ public class EspressoScreen : MonoBehaviour
     public DrinkManager drinkManager;
     public NewDrink activeDrink;
     public GameObject startButton;
+    public GameObject MilkButton;
 
     [Header("Filling Settings")] 
     public float fillDelay = 1f;
 
     private void OnEnable()
     {
+        MilkButton.SetActive(false);
         if (drinkManager == null)
         {
             Debug.LogError("No drink manager");
@@ -41,7 +43,9 @@ public class EspressoScreen : MonoBehaviour
         yield return new WaitForSeconds(fillDelay);
         
         activeDrink.PourEspresso();
-        Debug.Log("poured espresso");
+        //Debug.Log("poured espresso");
+        yield return new WaitForSeconds(1f);
+        MilkButton.SetActive(true);
     }
     
     

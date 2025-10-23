@@ -90,15 +90,19 @@ public class NewDrink : MonoBehaviour
     
     public void PourEspresso()
     {
+        Debug.Log("Calling PourEspresso from NewDrink");
         isEmpty = false;
 
         if (temperature == TemperatureType.Hot)
         {
             drinkSprite = hotFilledCup;
+            Debug.Log("Changed sprite to hot full");
         }
 
         if (temperature == TemperatureType.Cold)
         {
+            Debug.Log("cold drink to pour espresso");
+            Debug.Log("ice cubes: " + iceCubes);
             if (iceCubes == 1)
             {
                 drinkSprite = icedFilledCup_1ice;
@@ -110,6 +114,7 @@ public class NewDrink : MonoBehaviour
             else if (iceCubes == 3)
             {
                 drinkSprite = icedFilledCup_3ice;
+                Debug.Log("drink sprite icedFilled 3 ice");
             }
         }
         
@@ -153,7 +158,13 @@ public class NewDrink : MonoBehaviour
     // set number of ice cubes after minigame
     public void SetIceCubes(int ice)
     {
-        iceCubes = ice;
+        //iceCubes = ice;
+        if (ice > 3)
+            iceCubes = 3;
+        else
+        {
+            iceCubes = ice;
+        }
 
         if (ice == 1)
             drinkSprite = icedEmptyCup_1ice;
