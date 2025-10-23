@@ -2,20 +2,24 @@ using UnityEngine;
 
 public class EspressoScreen : MonoBehaviour
 {
-    public tempDrink drink;
+    public DrinkManager drinkManager;
+    public NewDrink activeDrink;
     public GameObject startButton;
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        drink.SetIsEmpty(true);
-        drink.SetIsHot(true);   // i just want to start with hot drinks for now idk
-    }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
+        if (drinkManager != null)
+        {
+            Debug.LogError("No drink manager");
+        }
         
+        activeDrink = drinkManager.GetActiveDrink();
+
+        if (activeDrink == null)
+        {
+            Debug.LogError("No active drink");
+            return;
+        }
     }
     
     
