@@ -4,6 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="c43102f5-94bc-4536-914e-0e107d38329b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Unity/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unity/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/DrinkManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DrinkManager.cs" afterDir="false" />
@@ -12,6 +13,9 @@
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/ScreenManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ScreenManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/SpaceCatsGame.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SpaceCatsGame.unity" afterDir="false" />
     </list>
+=======
+    <list default="true" id="c43102f5-94bc-4536-914e-0e107d38329b" name="Changes" comment="" />
+>>>>>>> DrinkManagerWithNav
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -162,9 +166,13 @@
       <workItem from="1760523112827" duration="6134000" />
       <workItem from="1760683095693" duration="2548000" />
       <workItem from="1760994462522" duration="597000" />
+<<<<<<< HEAD
       <workItem from="1761023332539" duration="9076000" />
       <workItem from="1761100676145" duration="18000" />
       <workItem from="1761100794662" duration="3093000" />
+=======
+      <workItem from="1761023332539" duration="10468000" />
+>>>>>>> DrinkManagerWithNav
     </task>
     <servers />
   </component>
