@@ -9,6 +9,8 @@ public class DrinkManager : MonoBehaviour
     private List<NewDrink> drinks = new List<NewDrink>();
     private NewDrink activeDrink;
 
+    public Canvas canvas;
+
     public NewDrink CreateDrink(TemperatureType temperature, int iceCubes = 0, Vector3? spawnPosition = null)
     {
         if (newDrinkPrefab == null)
@@ -17,14 +19,27 @@ public class DrinkManager : MonoBehaviour
             return null;
         }
 
-        Vector3 pos = spawnPosition ?? Vector3.zero;
-        GameObject drinkObj = Instantiate(newDrinkPrefab, pos, Quaternion.identity);
-        NewDrink drinkComp = drinkObj.GetComponent<NewDrink>();
+        //Vector3 pos = spawnPosition ?? Vector3.zero;
+        //GameObject drinkObj = Instantiate(newDrinkPrefab, pos, Quaternion.identity);
+        
+        GameObject drink = Instantiate(newDrinkPrefab);
+        
+        if (canvas != null)
+            drink.transform.SetParent(canvas.transform, false);
+        
+        NewDrink drinkComp = drink.GetComponent<NewDrink>();
 
         if (drinkComp != null)
         {
             drinkComp.temperature = temperature;
             drinkComp.iceCubes = iceCubes;
+
+            if (spawnPosition.HasValue)
+            {
+                RectTransform rt = drink.GetComponent<RectTransform>();
+                if (rt != null)
+                    rt.anchoredPosition = (Vector2)spawnPosition.Value;
+            }
         }
 
         drinks.Add(drinkComp);

@@ -158,8 +158,13 @@ public class IceGameMechanics : MonoBehaviour
         }
 
         Debug.Log(iceCounter + " cubes caught. Ice mini-game complete!");
+        
+        NewDrink activeDrink = drinkManager.GetActiveDrink();
 
-        drinkManager.CreateDrink(TemperatureType.Cold, iceCounter);
-        Debug.Log("Created a drink with iceGamemechanics and Drinkmanager");
+        if (activeDrink != null)
+        {
+            activeDrink.SetIceCubes(iceCounter);
+        }
+        Debug.Log("Drink stats: " + drinkManager.GetActiveDrink().GetIceCubes());
     }
 }

@@ -62,12 +62,17 @@ public class NewDrink : MonoBehaviour
     }
 
     // Simple runtime methods
-    public void AddIce() => iceCubes = Mathf.Clamp(iceCubes + 1, 0, 3);
+    //public void AddIce() => iceCubes = Mathf.Clamp(iceCubes + 1, 0, 3);
     public void RemoveIce() => iceCubes = Mathf.Max(0, iceCubes - 1);
     public void ToggleWhip() => hasWhippedCream = !hasWhippedCream;
     public void Serve() => isServed = true;
 
-
+    public void SetIceCubes(int iceCubes)
+    {
+        this.iceCubes = iceCubes;
+    }
+    
+    public int GetIceCubes() => iceCubes;
 
     // hot or cold
     // if cold: number of ice cubes (1 to 3)
