@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c43102f5-94bc-4536-914e-0e107d38329b" name="Changes" comment="" />
+    <list default="true" id="c43102f5-94bc-4536-914e-0e107d38329b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Unity/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unity/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Drink.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Drink.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DrinkScriptableObjects/DrizzleDefinition.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DrinkScriptableObjects/DrizzleDefinition.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EspressoScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EspressoScreen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NewDrink.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NewDrink.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ToppingsScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ToppingsScreen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/SpaceCatsGame.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SpaceCatsGame.unity" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,7 +53,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "quickScreenFix",
+    "git-widget-placeholder": "FixToppings",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",

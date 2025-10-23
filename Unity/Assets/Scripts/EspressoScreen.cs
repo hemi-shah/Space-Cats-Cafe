@@ -22,6 +22,7 @@ public class EspressoScreen : MonoBehaviour
         
         activeDrink = drinkManager.GetActiveDrink();
         activeDrink.SetVisualOn(true);
+        Debug.Log("set drink visual on");
 
         if (activeDrink == null)
         {
