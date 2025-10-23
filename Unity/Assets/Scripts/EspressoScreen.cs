@@ -1,21 +1,51 @@
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
 
 public class EspressoScreen : MonoBehaviour
 {
-    public tempDrink drink;
+    public DrinkManager drinkManager;
+    public NewDrink activeDrink;
     public GameObject startButton;
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public GameObject MilkButton;
+
+    [Header("Filling Settings")] 
+    public float fillDelay = 1f;
+
+    private void OnEnable()
     {
-        drink.SetIsEmpty(true);
-        drink.SetIsHot(true);   // i just want to start with hot drinks for now idk
+        MilkButton.SetActive(false);
+        if (drinkManager == null)
+        {
+            Debug.LogError("No drink manager");
+        }
+        
+        activeDrink = drinkManager.GetActiveDrink();
+        activeDrink.SetVisualOn(true);
+
+        if (activeDrink == null)
+        {
+            Debug.LogError("No active drink");
+            return;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void PourEspresso()
     {
+        if (activeDrink != null)
+        {
+            StartCoroutine(FillCupRoutine());
+        }
+    }
+
+    private IEnumerator FillCupRoutine()
+    {
+        yield return new WaitForSeconds(fillDelay);
         
+        activeDrink.PourEspresso();
+        //Debug.Log("poured espresso");
+        yield return new WaitForSeconds(1f);
+        MilkButton.SetActive(true);
     }
     
     

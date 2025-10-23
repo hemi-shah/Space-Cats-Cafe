@@ -18,12 +18,14 @@ public class SyrupSelection : MonoBehaviour
     [SerializeField] private float slideDuration = 0.5f;
     [SerializeField] private float tiltAngle = 65f;
     [SerializeField] private float tiltDelay = 0.3f;
-    
-    [Header("Drink References")]
+
+    [Header("Drink References")] 
+    public DrinkManager drinkManager;
     public GameObject hotDrinkImage;
     public GameObject coldDrinkImage;
 
-    private Drink currentDrink;
+    //private Drink currentDrink;
+    private NewDrink activeDrink;
     private bool selected = false;
     
     private Vector2 caramelOriginalPos;
@@ -34,8 +36,14 @@ public class SyrupSelection : MonoBehaviour
 
     private void Start()
     {
-        currentDrink = new Drink(isHot: false);
-        UpdateDrinkImage();
+        //currentDrink = new Drink(isHot: false);
+        activeDrink = drinkManager.GetActiveDrink();
+
+        if (activeDrink == null)
+        {
+            return;
+        }
+        //UpdateDrinkImage();
         
         Canvas canvas = GetComponentInParent<Canvas>();
         if (canvas != null)
@@ -161,12 +169,14 @@ public class SyrupSelection : MonoBehaviour
         rt.localRotation = Quaternion.identity;
     }
 
+    /*
     private void UpdateDrinkImage()
     {
-        if (currentDrink == null) return;
+        if (activeDrink == null) return;
 
-        bool isHot = currentDrink.IsHot;
+        bool isHot = activeDrink.IsHot;
         hotDrinkImage.SetActive(isHot);
         coldDrinkImage.SetActive(!isHot);
     }
+    */
 }

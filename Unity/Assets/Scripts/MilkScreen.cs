@@ -5,7 +5,10 @@ using UnityEngine;
 
 public class MilkScreen : MonoBehaviour
 {
-    public tempDrink drink;
+    public DrinkManager drinkManager;
+    public NewDrink activeDrink;
+    
+    //public tempDrink drink;
     public GameObject dairyMilk;
     public GameObject almondMilk;
     public GameObject oatMilk;
@@ -19,12 +22,10 @@ public class MilkScreen : MonoBehaviour
     public MilkType SelectedMilk { get; private set; } = MilkType.None;
 
     private Coroutine active;
-
-    void Start()
+    
+    private void OnEnable()
     {
-        // testing with hot non empty drink
-        drink.SetIsHot(true);
-        drink.SetIsEmpty(false);
+        activeDrink = drinkManager.GetActiveDrink();
     }
     
     public void SelectDairy()
@@ -64,22 +65,12 @@ public class MilkScreen : MonoBehaviour
     // this function is ChatGPT
     private IEnumerator TeleportThenDelay(GameObject milkGo)
     {
-        /*
-        var rt = milkGo.GetComponent<RectTransform>();
-        if (!rt) yield break;
-        
-        // Teleport
-        rt.anchoredPosition = teleportAnchoredPos;
-        var e = rt.localEulerAngles;
-        e.z = -Mathf.Abs(teleportTiltZ);
-        rt.localEulerAngles = e;
-        
-        yield return new WaitForSeconds(postTeleportDelay);
-
-        drink.PourMilk(SelectedMilk);
-        */
         var rt = milkGo.GetComponent<RectTransform>();
         if (!rt || !cup) yield break;
+        
+        // Store original position and rotation to return to later
+        Vector2 originalPos = rt.anchoredPosition;
+        Quaternion originalRot = rt.localRotation;
 
         // Make coords predictable
         rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
@@ -109,7 +100,14 @@ public class MilkScreen : MonoBehaviour
 
         // Pause, then apply milk
         yield return new WaitForSeconds(postTeleportDelay);
-        drink.PourMilk(SelectedMilk);
+        activeDrink.PourMilk(SelectedMilk);
+
+        yield return new WaitForSeconds(postTeleportDelay);
         
+        rt.anchoredPosition = originalPos;
+        rt.localRotation = originalRot;
+        
+        active = null;
+
     }
 }

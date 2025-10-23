@@ -1,61 +1,67 @@
 using System.Collections.Generic;
 using UnityEngine;
-using System.Collections;
-using System;
 
 public class DrinkManager : MonoBehaviour
 {
-    private List<NewDrink> drinks;
+    [Header("Prefab Reference")]
+    public GameObject newDrinkPrefab;
+
+    private List<NewDrink> drinks = new List<NewDrink>();
     private NewDrink activeDrink;
 
-    public event Action<NewDrink> OnActiveDrinkChanged;
+    public Canvas canvas;
 
-    private void Awake()
+    public NewDrink CreateDrink(TemperatureType temperature, int iceCubes = 0, Vector3? spawnPosition = null)
     {
-        if (drinks == null)
+        if (newDrinkPrefab == null)
         {
-            drinks = new List<NewDrink>();
+            Debug.LogError("NewDrink prefab not assigned in DrinkManager!");
+            return null;
         }
-    }
 
-    public NewDrink CreateDrink(TemperatureType temperature, int startingIce)
-    {
-        NewDrink newDrink = new NewDrink(temperature, startingIce);
-        AddDrink(newDrink);
-        SetActiveDrink(newDrink);
-        return newDrink;
-    }
-    
-    public NewDrink CreateDrinkFromRecipe(DrinkRecipe recipe)
-    {
-        NewDrink newDrink = new NewDrink(recipe);
-        drinks.Add(newDrink);
-        SetActiveDrink(newDrink);
-        return newDrink;
-    }
-    
-    public void AddDrink(NewDrink drink)
-    {
-        drinks.Add(drink);
+        //Vector3 pos = spawnPosition ?? Vector3.zero;
+        //GameObject drinkObj = Instantiate(newDrinkPrefab, pos, Quaternion.identity);
+        
+        GameObject drink = Instantiate(newDrinkPrefab);
+        
+        if (canvas != null)
+            drink.transform.SetParent(canvas.transform, false);
+        
+        NewDrink drinkComp = drink.GetComponent<NewDrink>();
+
+        if (drinkComp != null)
+        {
+            drinkComp.temperature = temperature;
+            drinkComp.iceCubes = iceCubes;
+            drinkComp.isEmpty = true;
+            drinkComp.SetInitialSprite(temperature, iceCubes);
+
+            if (spawnPosition.HasValue)
+            {
+                RectTransform rt = drink.GetComponent<RectTransform>();
+                if (rt != null)
+                    rt.anchoredPosition = (Vector2)spawnPosition.Value;
+            }
+        }
+
+        drinks.Add(drinkComp);
+        activeDrink = drinkComp;
+
+        return drinkComp;
     }
 
     public void RemoveDrink(NewDrink drink)
     {
-        drinks.Remove(drink);
+        if (drinks.Contains(drink))
+        {
+            drinks.Remove(drink);
+            Destroy(drink.gameObject);
+        }
     }
 
-    public int GetDrinkCount()
-    {
-        return drinks.Count;
-    }
+    public List<NewDrink> GetAllDrinks() => drinks;
 
-    public void SetActiveDrink(NewDrink drink)
-    {
-        activeDrink = drink;
-    }
+    public void SetActiveDrink(NewDrink drink) => activeDrink = drink;
 
-    public NewDrink GetActiveDrink()
-    {
-        return activeDrink;
-    }
+    public NewDrink GetActiveDrink() => activeDrink;
 }

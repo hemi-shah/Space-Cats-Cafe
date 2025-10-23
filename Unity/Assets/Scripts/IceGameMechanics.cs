@@ -9,6 +9,8 @@ public class IceGameMechanics : MonoBehaviour
     public CupAnimator cupAnimator;               
     public GameObject icePrefab;
     public Transform iceSpawnPoint; 
+    public DrinkManager drinkManager;
+    public GameObject EspressoButton;
 
     [Header("Settings")]
     public int requiredIce = 3;
@@ -29,6 +31,7 @@ public class IceGameMechanics : MonoBehaviour
     {
         iceCounter = 0;
         isPlaying = false;
+        EspressoButton.SetActive(false);
         
         if (cupAnimator != null && cupAnimator.cupRect != null)
         {
@@ -157,5 +160,15 @@ public class IceGameMechanics : MonoBehaviour
         }
 
         Debug.Log(iceCounter + " cubes caught. Ice mini-game complete!");
+        
+        NewDrink activeDrink = drinkManager.GetActiveDrink();
+
+        if (activeDrink != null)
+        {
+            activeDrink.SetIceCubes(iceCounter);
+        }
+        Debug.Log("Drink stats: " + drinkManager.GetActiveDrink().GetIceCubes());
+        
+        //EspressoButton.SetActive(true);
     }
 }

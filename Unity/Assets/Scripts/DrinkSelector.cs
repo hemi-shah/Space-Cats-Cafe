@@ -9,15 +9,23 @@ public class DrinkSelector : MonoBehaviour
     public CupAnimator hotCupAnimator;
     public CupAnimator coldCupAnimator;
 
-    private Drink currentDrink;
+    private NewDrink currentDrink;
     private bool selected = false;
+    
+    public DrinkManager drinkManager;
 
     public void SelectColdDrink()
     {
         if (selected) return;
         selected = true;
 
-        currentDrink = new Drink(false);
+        //currentDrink = new Drink(false);
+        if (drinkManager == null)
+        {
+            Debug.LogError("DrinkManager not set");
+        }
+        
+        currentDrink = drinkManager.CreateDrink(TemperatureType.Cold);
         Debug.Log("Cold drink selected!");
         _disableButtons();
 
@@ -30,7 +38,8 @@ public class DrinkSelector : MonoBehaviour
         if (selected) return;
         selected = true;
 
-        currentDrink = new Drink(true);
+        //currentDrink = new Drink(true);
+        currentDrink = drinkManager.CreateDrink(TemperatureType.Hot);
         Debug.Log("Hot drink selected!");
         _disableButtons();
 
