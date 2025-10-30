@@ -67,7 +67,7 @@ public class CollectionScreenController : MonoBehaviour
         }
 
         // Get collected cats from CatCollectionManager
-        CatCollectionManager collectionManager = FindObjectOfType<CatCollectionManager>();
+        CatCollectionManager collectionManager = FindFirstObjectByType<CatCollectionManager>();
         if (collectionManager == null)
         {
             logger.LogError("❌ CatCollectionManager not found!");

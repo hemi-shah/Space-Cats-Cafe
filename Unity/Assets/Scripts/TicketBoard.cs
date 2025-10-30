@@ -128,7 +128,7 @@ public class TicketBoard : MonoBehaviour
         }
 
         // Try to find existing CatCollectionManager
-        CatCollectionManager collectionManager = FindObjectOfType<CatCollectionManager>();
+        CatCollectionManager collectionManager = FindFirstObjectByType<CatCollectionManager>();
         logger.Log($"🔍 CatCollectionManager found: {collectionManager != null}");
         
         // If not found, create one

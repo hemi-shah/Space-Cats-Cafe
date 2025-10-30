@@ -6,5 +6,6 @@ public class CatDefinition : ScriptableObject
     public string catId;
     public string catName;
     public Sprite catSprite;
+    public int starscollected;
 }
 
