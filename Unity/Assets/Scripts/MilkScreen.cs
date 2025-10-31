@@ -67,8 +67,13 @@ public class MilkScreen : MonoBehaviour
     // this function is ChatGPT
     private IEnumerator TeleportThenDelay(GameObject milkGo)
     {
+        /*
         var rt = milkGo.GetComponent<RectTransform>();
         if (!rt || !cup) yield break;
+        */
+        
+        RectTransform rt = milkGo.GetComponent<RectTransform>();
+        if (rt == null || cup == null) yield break;
         
         // Store original position and rotation to return to later
         Vector2 originalPos = rt.anchoredPosition;
@@ -80,7 +85,7 @@ public class MilkScreen : MonoBehaviour
 
         // Compute target anchoredPosition relative to the milk's parent
         Vector2 targetAnchored;
-        var parentRT = (RectTransform)rt.parent;
+        RectTransform parentRT = (RectTransform)rt.parent;
 
         if (cup.transform.IsChildOf(parentRT)) {
             // Same parent space: anchored positions are compatible

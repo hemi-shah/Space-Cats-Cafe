@@ -79,8 +79,13 @@ public class ToppingsScreen : MonoBehaviour
     
     private IEnumerator TeleportThenApply(GameObject sourceGo, ToppingsType type)
     {
-        var rt = sourceGo.GetComponent<RectTransform>();
-        if (!rt) { active = null; yield break; }
+        RectTransform rt = sourceGo.GetComponent<RectTransform>();
+        if (rt == null)
+        {
+            active = null;
+            yield break;
+        }
+        //if (!rt) { active = null; yield break; }
 
         // Normalize for predictable anchoredPosition behavior
         rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
@@ -88,7 +93,7 @@ public class ToppingsScreen : MonoBehaviour
 
         // Compute target position in the topping's parent space (same pattern as your MilkScreen)
         Vector2 targetAnchored;
-        var parentRT = (RectTransform)rt.parent;
+        RectTransform parentRT = (RectTransform)rt.parent;
 
         if (cup.transform.IsChildOf(parentRT))
         {

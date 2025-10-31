@@ -6,6 +6,11 @@ public class DrinkManager : MonoBehaviour
     [Header("Prefab Reference")]
     public GameObject newDrinkPrefab;
 
+    [Header("Anchors")] 
+    public RectTransform espressoAnchor;
+    public RectTransform milkAnchor;
+    public RectTransform toppingsAnchor;
+
     private List<NewDrink> drinks = new List<NewDrink>();
     private NewDrink activeDrink;
 
@@ -59,6 +64,21 @@ public class DrinkManager : MonoBehaviour
             drinks.Remove(drink);
             Destroy(drink.gameObject);
         }
+    }
+
+    public void PlaceDrinkAtAnchor(NewDrink drink, RectTransform anchor)
+    {
+        if (drink == null || anchor == null)
+            return;
+        
+        RectTransform rt = drink.GetComponent<RectTransform>();
+        if (rt == null)
+            return;
+        
+        rt.SetParent(anchor.parent, false);
+        rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
+        rt.pivot = new Vector2(0.5f, 0.5f);
+        rt.anchoredPosition = anchor.anchoredPosition;
     }
 
     public List<NewDrink> GetAllDrinks() => drinks;

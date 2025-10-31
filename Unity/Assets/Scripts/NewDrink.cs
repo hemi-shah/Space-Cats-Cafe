@@ -52,8 +52,23 @@ public class NewDrink : MonoBehaviour
     public Vector2 chocolatePosCold;
     public Vector2 caramelPosHot;
     public Vector2 caramelPosCold;
+    
+    [Header("Runtime State")]
+    public DrinkStation currentStation = DrinkStation.None;
 
     private ILogger logger = new DebugLogger();
+
+    public bool TryAdvanceTo(DrinkStation next)
+    {
+        if ((int)next <= (int)currentStation)
+        {
+            // can't go backwards
+            return false;
+        }
+
+        currentStation = next;
+        return true;
+    }
 
     public void UpdateVisual()
     {
@@ -80,6 +95,42 @@ public class NewDrink : MonoBehaviour
             drinkImage.enabled = true;
         else
             drinkImage.enabled = false;
+    }
+
+    public void UpdateVisibility(DrinkStation visibleStation)
+    {
+        bool shouldShow = (currentStation == visibleStation);
+        SetVisualOn(shouldShow);
+    }
+
+    public void SendToNextStation()
+    {
+        switch (currentStation)
+        {
+            case DrinkStation.None:
+                currentStation = DrinkStation.DrinkSelector;
+                break;
+            case DrinkStation.DrinkSelector:
+                currentStation = DrinkStation.Espresso;
+                break;
+            case DrinkStation.Espresso:
+                currentStation = DrinkStation.Milk;
+                break;
+            case DrinkStation.Milk:
+                currentStation = DrinkStation.Toppings;
+                break;
+            case DrinkStation.Toppings:
+                currentStation = DrinkStation.Served;
+                break;
+        }
+        
+        SetVisualOn(false);
+    }
+
+    // force send to specific station
+    public void SendToStation(DrinkStation station)
+    {
+        currentStation = station;
     }
     
     private void SetChildToLocalPosition(GameObject child, Vector2 localPos)

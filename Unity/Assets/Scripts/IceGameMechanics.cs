@@ -11,6 +11,7 @@ public class IceGameMechanics : MonoBehaviour
     public Transform iceSpawnPoint; 
     public DrinkManager drinkManager;
     public GameObject EspressoButton;
+    public GameObject sendToNextStationButton;
 
     [Header("Settings")]
     public int requiredIce = 3;
@@ -34,6 +35,7 @@ public class IceGameMechanics : MonoBehaviour
         iceCounter = 0;
         isPlaying = false;
         EspressoButton.SetActive(false);
+        sendToNextStationButton.SetActive(false);
         
         if (cupAnimator != null && cupAnimator.cupRect != null)
         {
@@ -172,5 +174,12 @@ public class IceGameMechanics : MonoBehaviour
         logger.Log("Drink stats: " + drinkManager.GetActiveDrink().GetIceCubes());
         
         //EspressoButton.SetActive(true);
+        StartCoroutine(ActivateButtonRoutine(0.5f));
+    }
+
+    private IEnumerator ActivateButtonRoutine(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        sendToNextStationButton.SetActive(true);
     }
 }
