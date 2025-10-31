@@ -70,6 +70,11 @@ public class NewDrink : MonoBehaviour
         return true;
     }
 
+    public DrinkStation GetCurrentStation()
+    {
+        return currentStation;
+    }
+
     public void UpdateVisual()
     {
         if (drinkSprite == null)

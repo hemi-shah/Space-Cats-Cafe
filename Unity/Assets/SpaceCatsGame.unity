@@ -4721,7 +4721,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SendDrinkButton
   drinkManager: {fileID: 141053789}
-  screenManager: {fileID: 996801707}
 --- !u!114 &789382918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7413,7 +7412,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SendDrinkButton
   drinkManager: {fileID: 141053789}
-  screenManager: {fileID: 996801707}
 --- !u!114 &1164671460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9063,7 +9061,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SendDrinkButton
   drinkManager: {fileID: 141053789}
-  screenManager: {fileID: 996801707}
 --- !u!114 &1389601445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9518,7 +9515,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SendDrinkButton
   drinkManager: {fileID: 141053789}
-  screenManager: {fileID: 996801707}
 --- !u!114 &1475124249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11745,7 +11741,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SendDrinkButton
   drinkManager: {fileID: 141053789}
-  screenManager: {fileID: 0}
 --- !u!114 &1780871752
 MonoBehaviour:
   m_ObjectHideFlags: 0

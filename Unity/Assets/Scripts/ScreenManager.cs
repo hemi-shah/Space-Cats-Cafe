@@ -247,7 +247,37 @@ public class ScreenManager : MonoBehaviour
         
         NewDrink active = drinkManager.GetActiveDrink();
         if (active == null) return;
+
+        bool suppress = true;
+        logger.Log("drink suppressed");
         
+        // get currentDrinkStation of active drink
+        DrinkStation currentDrinkStation = active.GetCurrentStation();
+        
+        // check if dictionary contains the key of the currentScreen
+        // then check if the drinkStation corresponding the the current screen matches the drink's currentStation
+        if (screenToStation.ContainsKey(screenId) &&
+            screenToStation[screenId] == currentDrinkStation)
+        {
+            suppress = false;
+            logger.Log($"drink not suppressed. current screen: {screenId}; current station: {currentDrinkStation}");
+        }
+
+        if (suppress)
+        {
+            logger.Log("calling suppress block");
+            active.SetVisualOn(false);
+            active.transform.SetAsFirstSibling();
+        }
+
+        else
+        {
+            logger.Log("calling non-suppress block");
+            active.SetVisualOn(true);
+            active.transform.SetAsLastSibling();
+        }
+
+        /*
         bool suppress = suppressActiveDrink.Contains(screenId);
         logger.Log($"suppress: {suppress}");
 
@@ -265,7 +295,7 @@ public class ScreenManager : MonoBehaviour
             DrinkStation screenStation = screenToStation[screenId];
             bool shouldShow = (screenStation == active.currentStation);
             active.SetVisualOn(shouldShow);
-            
+
             if (shouldShow)
                 active.transform.SetAsLastSibling();
             else
@@ -291,13 +321,14 @@ public class ScreenManager : MonoBehaviour
                     shouldShow = false;
                 }
             }
-            
+
             active.SetVisualOn(shouldShow);
-            
+
             if (shouldShow)
                 active.transform.SetAsLastSibling();
         }
         */
+
     }
 
     private void UpdateDrinkVisibility(string screenId)
