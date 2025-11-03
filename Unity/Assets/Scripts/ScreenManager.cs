@@ -105,12 +105,17 @@ public class ScreenManager : MonoBehaviour
         if (!string.IsNullOrEmpty(currentScreenId))
         {
             var currentScreen = screenDictionary[currentScreenId];
+
+            if (screenId != "IcedCustScreenGame")
+            {
+                currentScreen.screenObject.SetActive(false);
+                logger.Log($"Deactivating current screen: {currentScreenId}");
+            }
             
-            // Only deactivate if it's not a station
-            currentScreen.screenObject.SetActive(false);
         }
         
         ShowScreen(screenId);
+        logger.Log($"Showing screen: {screenId}");
         
         UpdateActiveDrinkVisibility(screenId);
     }
