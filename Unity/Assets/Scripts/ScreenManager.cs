@@ -8,7 +8,6 @@ public class ScreenManager : MonoBehaviour
     {
         public string screenId;
         public GameObject screenObject;
-        public bool isStation = false; // Stations remain active in background
     }
     
     public DrinkManager drinkManager;
@@ -43,10 +42,12 @@ public class ScreenManager : MonoBehaviour
     [Header("Menu Bar")]
     [SerializeField] private GameObject menuBar; // Add this line
     
+    /*
     [Header("Station Screens")]
     [SerializeField] private string ordersStation = "OrderPageScreen";
     [SerializeField] private string customizationsStation = "CustomizationsScreen"; 
     [SerializeField] private string assembleStation = "AssembleScreen";
+    */
 
     private Dictionary<string, GameScreen> screenDictionary;
     private string currentScreenId;
@@ -94,20 +95,10 @@ public class ScreenManager : MonoBehaviour
 
         NewDrink active = null;
 
+        // get active drink
         if (drinkManager != null)
         {
             active = drinkManager.GetActiveDrink();
-        }
-
-        // new line test
-        if (active != null && screenToStation.ContainsKey(screenId))
-        {
-            DrinkStation requestedStation = screenToStation[screenId];
-            if ((int)requestedStation < (int)active.currentStation)
-            {
-                logger.Log($"Blocked backward navigation to {screenId} because drink is at {active.currentStation}");
-                return;
-            }
         }
         
         // Hide current screen
@@ -116,15 +107,7 @@ public class ScreenManager : MonoBehaviour
             var currentScreen = screenDictionary[currentScreenId];
             
             // Only deactivate if it's not a station
-            if (!currentScreen.isStation)
-            {
-                currentScreen.screenObject.SetActive(false);
-            }
-            else
-            {
-                // Station screens just get moved to background but stay active
-                MoveToBackground(currentScreen);
-            }
+            currentScreen.screenObject.SetActive(false);
         }
         
         ShowScreen(screenId);
@@ -133,6 +116,7 @@ public class ScreenManager : MonoBehaviour
     }
 
     // For quick station switching via menu bar
+    /*
     public void SwitchToStation(string stationId)
     {
         if (!screenDictionary.ContainsKey(stationId)) return;
@@ -142,17 +126,7 @@ public class ScreenManager : MonoBehaviour
         {
             active = drinkManager.GetActiveDrink();
         }
-
-        // block navigation test
-        if (active != null && screenToStation.ContainsKey(stationId))
-        {
-            DrinkStation requestedStation = screenToStation[stationId];
-            if ((int)requestedStation < (int)active.currentStation)
-            {
-                logger.Log($"Blocked backward station switch to {stationId} because drink is at {active.currentStation}");
-                return;
-            }
-        }
+        
         
         // Hide current screen but keep stations active
         if (!string.IsNullOrEmpty(currentScreenId))
@@ -170,10 +144,11 @@ public class ScreenManager : MonoBehaviour
         
         ShowScreen(stationId);
     }
-
+    */
+    
     private void ShowScreen(string screenId)
     {
-        activeDrink = drinkManager.GetActiveDrink();
+        activeDrink = drinkManager.GetActiveDrink(); 
         var screen = screenDictionary[screenId];
         screen.screenObject.SetActive(true);
         BringToForeground(screen);
@@ -183,13 +158,6 @@ public class ScreenManager : MonoBehaviour
         // Add this line to always show menu bar on game screens
         UpdateMenuBarVisibility(screenId);
         UpdateActiveDrinkVisibility(screenId);
-
-        /*
-        if (activeDrink != null)
-        {
-            BringActiveDrinkToFront(screenId);
-        }
-        */
 
         if (activeDrink != null)
         {
@@ -362,24 +330,6 @@ public class ScreenManager : MonoBehaviour
         }
     }
     
-    /*
-    private void BringActiveDrinkToFront(string screenId)
-    {
-        if (activeDrink == null) return;
-        
-        bool suppress = suppressActiveDrink.Contains(screenId);
-        
-        if (suppress)
-        {
-            activeDrink.transform.SetAsFirstSibling();
-        }
-
-        else
-        {
-            activeDrink.transform.SetAsLastSibling();
-        }
-    }
-    */
     
 
     // Add this method to handle menu bar visibility
@@ -412,9 +362,11 @@ public class ScreenManager : MonoBehaviour
     }
 
     // Quick access methods for your specific stations
+    /*
     public void GoToOrdersStation() => SwitchToStation(ordersStation);
     public void GoToCustomizationsStation() => SwitchToStation(customizationsStation);
     public void GoToAssembleStation() => SwitchToStation(assembleStation);
-
+    */
+    
     public string GetCurrentScreen() => currentScreenId;
 }

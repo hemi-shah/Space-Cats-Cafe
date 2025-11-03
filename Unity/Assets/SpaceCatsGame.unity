@@ -6166,46 +6166,32 @@ MonoBehaviour:
   screens:
   - screenId: StartScreen
     screenObject: {fileID: 928782936}
-    isStation: 0
   - screenId: OrderPageScreen
     screenObject: {fileID: 1188808055}
-    isStation: 0
   - screenId: TakeOrderScreen
     screenObject: {fileID: 1853405841}
-    isStation: 0
   - screenId: CustomizationsScreen
     screenObject: {fileID: 124921578}
-    isStation: 1
   - screenId: AssembleScreen
     screenObject: {fileID: 1833624386}
-    isStation: 1
   - screenId: ChooseCatScreen
     screenObject: {fileID: 819893730}
-    isStation: 0
   - screenId: PauseGameScreen
     screenObject: {fileID: 2126096979}
-    isStation: 0
   - screenId: CustomerReviewScreen
     screenObject: {fileID: 1345586145}
-    isStation: 0
   - screenId: EspressoScreen
     screenObject: {fileID: 1833624386}
-    isStation: 1
   - screenId: MilkScreen
     screenObject: {fileID: 1019713665}
-    isStation: 1
   - screenId: ToppingsScreen
     screenObject: {fileID: 1936925107}
-    isStation: 1
   - screenId: IcedCustScreenGame
     screenObject: {fileID: 130729006}
-    isStation: 1
   - screenId: SyrupSelectionScreen
     screenObject: {fileID: 522029888}
-    isStation: 1
   - screenId: CollectedCatsScreen
     screenObject: {fileID: 944102486}
-    isStation: 0
   ticketBoardRoot: {fileID: 1933170643}
   suppressBoardOnScreens:
   - StartScreen
@@ -6219,9 +6205,6 @@ MonoBehaviour:
   - OrderPageScreen
   - TakeOrderScreen
   menuBar: {fileID: 2084903849}
-  ordersStation: OrderPageScreen
-  customizationsStation: CustomizationsScreen
-  assembleStation: AssembleScreen
 --- !u!114 &996801708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9700,7 +9683,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: AssembleScreen
+          m_StringArgument: EspressoScreen
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1477708025
